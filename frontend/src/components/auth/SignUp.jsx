@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Typography, TextField, Button } from "@mui/material";
 import { logIn, loadUser, signUpUser } from "../../redux/actions/authAction";
+import { UilUserPlus } from "@iconscout/react-unicons";
 const SignUp = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -24,14 +25,16 @@ const SignUp = () => {
     setUser({ email: "", password: "", name: " " });
   };
 
-  if (auth.id) return <Navigate to="/"></Navigate>;
+  // if (auth.id) return <Navigate to="/"></Navigate>;
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="row border justify-content-center">
           <div className="col-md-6  text-center p-2 m-2">
-            <Typography variant="h5">Signup as Admin</Typography>
+            <Typography variant="h5">
+              <UilUserPlus></UilUserPlus>Add User
+            </Typography>
             <TextField
               id="enter-name"
               label="Enter name"
@@ -39,6 +42,7 @@ const SignUp = () => {
               fullWidth
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
+              style={{ padding: "8px" }}
             />
             <TextField
               id="enter-email"
@@ -47,6 +51,7 @@ const SignUp = () => {
               fullWidth
               value={user.email}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
+              style={{ padding: "8px" }}
             />
             <TextField
               id="enter-password"
@@ -56,6 +61,7 @@ const SignUp = () => {
               fullWidth
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
+              style={{ padding: "8px" }}
             />
             <Button variant="contained" color="primary" type="submit">
               SignUp

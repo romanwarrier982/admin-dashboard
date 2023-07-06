@@ -67,6 +67,7 @@ export default function BasicTable() {
         <Table sx={{ minWidth: 650, maxHeight: 500 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text" id="basic-addon1">
@@ -86,6 +87,7 @@ export default function BasicTable() {
                   onKeyDown={handleBlur}
                 />
               </div>
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Issue</TableCell>
@@ -99,7 +101,7 @@ export default function BasicTable() {
             {productList ? (
               productList.map((product) => (
                 <TableRow
-                  key={product.name}
+                  key={product.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
@@ -123,6 +125,7 @@ export default function BasicTable() {
           </TableBody>
           <TableFooter>
             <TableRow>
+              <TableCell>
               {productList && (
                 <Pagination
                   activePage={paginationData.current_page}
@@ -133,9 +136,10 @@ export default function BasicTable() {
                   itemClass="page-item"
                   linkClass="page-link"
                   firstPageText="First"
-                  lastPageText="Last"
+                  lastPageText="Last"               
                 />
               )}
+              </TableCell>
             </TableRow>
           </TableFooter>
         </Table>

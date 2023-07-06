@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -111,5 +112,17 @@ class ProductController extends Controller
         $images->move('uploads/', $filename);
 
         return $filename;
+    }
+
+
+     /**
+     * Fetch products
+     * @param NA
+     * @return JSON response
+     */
+    public function userList()
+    {
+        $user = User::paginate(10);
+        return response()->json(["status" => "success", "count" => count($user), "data" => $user]);
     }
 }

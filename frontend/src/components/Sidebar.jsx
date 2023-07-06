@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import Logo from "../imgs/logo.png";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import { SidebarData } from "../Data/Data";
@@ -23,6 +23,7 @@ const Sidebar = () => {
   }
   console.log(window.innerWidth)
   return (
+    
     <>
       <div className="bars" style={expanded?{left: '60%'}:{left: '5%'}} onClick={()=>setExpaned(!expanded)}>
         <UilBars />
@@ -31,6 +32,7 @@ const Sidebar = () => {
     variants={sidebarVariants}
     animate={window.innerWidth<=768?`${expanded}`:''}
     >
+      
       {/* logo */}
       <div className="logo">
         <img src={Logo} alt="logo" />
@@ -44,25 +46,30 @@ const Sidebar = () => {
           return (
                  
                 
-            <div
+            <Link
               className={selected === index ? "menuItem active" : "menuItem"}
               key={index}
               onClick={() => setSelected(index)}
+              to={item.link}
+              style={{ color:"black" , textDecoration: "none" }}
             >
+              
               <item.icon />
                 <span>{item.heading}</span>
-                
-            </div>
+               
+            </Link>
            
           );
         })}
         {/* signoutIcon */}
         <div className="menuItem">
-          <UilSignOutAlt />
+          
+          <Link  style={{ color:"black" , textDecoration: "none" }} to='/test'> <UilSignOutAlt /></Link>
+         
         </div>
-       {/* <Link to='/test'></Link> */}
        
       </div>
+     
     </motion.div>
     </>
   );

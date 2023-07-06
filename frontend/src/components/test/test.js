@@ -1,6 +1,10 @@
 import React from 'react'
-export default function test(){
+const Test =()=>{
     return(
-        <div>Hello</div>
+        <div>
+            <h1>sdfdsfgsdgs</h1>
+        </div>
     )
 }
+
+export default Test;

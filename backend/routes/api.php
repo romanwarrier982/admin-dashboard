@@ -39,4 +39,5 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('users_get', [ProductController::class, 'userList'])->name('users_get');
 });

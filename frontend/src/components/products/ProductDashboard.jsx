@@ -17,7 +17,6 @@ const ProductDashboard = () => {
     <>
       {auth.id ? (
         <>
-        <MainDash></MainDash>
           <div>
             <ProductForm
               product={product}

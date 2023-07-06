@@ -13,7 +13,7 @@ import SignUp from "./components/auth/SignUp";
 import MainDash from "./components/MainDash/MainDash";
 import RightSide from "./components/RigtSide/RightSide";
 import Sidebar from "./components/Sidebar";
-import test from "./components/test/test";
+import Test from "./components/test/test";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -24,37 +24,34 @@ function App() {
 
   return (
     <>
-      <div className="App">
-        {auth.id ? (
-          <div className="AppGlass">
-            <div className="Sidebar">
-              <Sidebar></Sidebar>
-            </div>
+      <BrowserRouter>
+        <ToastContainer></ToastContainer>
+        <div className="App">
+          {auth.id ? (
+            <div className="AppGlass">
+              <div className="Sidebar">
+                <Sidebar></Sidebar>
+              </div>
 
-            <div className="maindash">
-              
-              <BrowserRouter>
-                <ToastContainer></ToastContainer>
+              <div className="maindash">
                 <Container maxWidth={false}>
                   <Container maxWidth={false}>
                     <Routes>
                       <Route path="/signup" element={<SignUp />} />
                       <Route path="/" element={<LogIn />} />
-                      <Route path="/home" element={<ProductDashboard />} />
-                      <Route path="/test" element={<test />} />
+                      <Route path="/home" element={<MainDash />} />
+                      <Route path="/asset" element={<ProductDashboard />} />
+                      <Route path="/test" element={<Test></Test>} />
                     </Routes>
                   </Container>
                 </Container>
-              </BrowserRouter>
-            </div>
+              </div>
 
-            <div className="rightside">
-              <RightSide></RightSide>
+              <div className="rightside">
+                <RightSide></RightSide>
+              </div>
             </div>
-          </div>
-        ) : (
-          <BrowserRouter>
-            <ToastContainer></ToastContainer>
+          ) : (
             <Container maxWidth={false}>
               <Container maxWidth={false}>
                 <Routes>
@@ -64,9 +61,9 @@ function App() {
                 </Routes>
               </Container>
             </Container>
-          </BrowserRouter>
-        )}
-      </div>
+          )}
+        </div>
+      </BrowserRouter>
     </>
   );
 }

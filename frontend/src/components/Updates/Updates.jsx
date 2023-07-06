@@ -7,7 +7,7 @@ const Updates = () => {
     <div className="Updates">
       {UpdatesData.map((update) => {
         return (
-          <div className="update">
+          <div key={update.time} className="update">
             <img src={update.img} alt="profile" />
             <div className="noti">
               <div  style={{marginBottom: '0.5rem'}}>
