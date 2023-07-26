@@ -29,8 +29,8 @@ const LogIn = () => {
     <>
       <form onSubmit={handleSubmit}>
         <div className="row border justify-content-center">
-          <div>
-            <img src={logo}></img>
+          <div className="col-md-12  text-center p-2">
+            <img style={{width:"200px", height:"200px"}} src={logo}></img>
           </div>
           <div className="col-md-6  text-center p-2 m-2">
             <Typography variant="h5">Login as Admin</Typography>
