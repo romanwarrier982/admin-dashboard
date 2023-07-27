@@ -93,7 +93,7 @@ const ProductForm = ({ product, setProduct }) => {
             >
               <div className="card shadow">
                 <div className="card-header">
-                  <h4 className="card-title fw-bold">Upload New Products</h4>
+                  <h4 className="card-title fw-bold">Add New Asset</h4>
                 </div>
 
                 <div className="card-body">
