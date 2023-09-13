@@ -34,7 +34,7 @@ function CompactCard({ param, setExpanded }) {
       layoutId="expandableCard"
       onClick={setExpanded}
     >
-      <div className="radialBar">
+      <div  className="radialBar">
         <CircularProgressbar
           value={param.barValue}
           text={`${param.barValue}%`}

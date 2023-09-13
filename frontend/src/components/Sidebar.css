@@ -84,12 +84,14 @@
 
 @media screen and (max-width: 768px) {
   .sidebar{
+    
     position: fixed;
     z-index: 9;
-    background: #ffe0e0;
+    background: #9598be;
     width: 55%;
     padding-right: 1rem;
     height: 100%;
+    color: antiquewhite;
   }
   .menuItem>span{
     display: block;
@@ -106,10 +108,11 @@
     position: fixed;
     top: 2rem;
     left:60%;
-    background:#ffe0e0;
+    background:#9598be;
     padding:10px;
     border-radius: 10px;
     z-index: 9;
+    color: aliceblue;
   }
   .close{
     left: -60%;
