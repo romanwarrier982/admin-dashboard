@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['index', 'search']]);
+        $this->middleware('JWT', ['except' => ['index', 'search', 'userList']]);
     }
     /**
      * Fetch products

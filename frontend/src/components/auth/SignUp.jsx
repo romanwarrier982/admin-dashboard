@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Typography, TextField, Button } from "@mui/material";
 import { logIn, loadUser, signUpUser } from "../../redux/actions/authAction";
 import { UilUserPlus } from "@iconscout/react-unicons";
+import UserList from "../../components/auth/UserList";
 const SignUp = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -69,6 +70,8 @@ const SignUp = () => {
           </div>
         </div>
       </form>
+
+      <UserList></UserList>
     </>
   );
 };
