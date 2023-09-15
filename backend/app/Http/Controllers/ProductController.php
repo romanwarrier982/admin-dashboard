@@ -82,7 +82,7 @@ class ProductController extends Controller
      */
     public function delete(Request $request)
     {
-    
+
         unlink("uploads/" . $request->image_name);
         Product::where('id', $request->id)->delete();
         return response()->json(["status" => "Successfully Deleted Data",]);
@@ -115,14 +115,14 @@ class ProductController extends Controller
     }
 
 
-     /**
+    /**
      * Fetch products
      * @param NA
      * @return JSON response
      */
     public function userList()
     {
-        $user = User::paginate(10);
-        return response()->json(["status" => "success", "count" => count($user), "data" => $user]);
+        $user = User::with('role')->paginate(10);
+        return response()->json(["status" => "success", "data" => $user]);
     }
 }
