@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use Dotenv\Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -94,31 +94,9 @@ class RoleController extends Controller
     public function search(Request $request)
     {
 
-        return Product::where('name', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(10);
+        return Role::where('name', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(10);
     }
 
-    /**
-     * Create Path product
-     * @param NA
-     * @return String response
-     */
-    public function createImagePath($images)
-    {
-        $filename = time() . rand() . '.' . $images->getClientOriginalExtension();
-        $images->move('uploads/', $filename);
+ 
 
-        return $filename;
-    }
-
-
-    /**
-     * Fetch products
-     * @param NA
-     * @return JSON response
-     */
-    public function userList()
-    {
-        $user = User::with('role')->paginate(10);
-        return response()->json(["status" => "success", "data" => $user]);
-    }
 }
