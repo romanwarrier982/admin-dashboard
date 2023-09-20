@@ -97,6 +97,38 @@ class RoleController extends Controller
         return Role::where('name', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(10);
     }
 
+
+
+     /**
+     * Upload products
+     * @param $request
+     * @return JSON response
+     */
+    public function addPermissionToRole(Request $request)
+    {
+        $response = [];
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(["status" => "failed", "message" => "Validation error", "errors" => $validator->errors()]);
+        }
+    
+
+        Role::create([
+            'name' => $request->name,
+            
+        ]);
+
+        return response()->json(["status" => "success", "message" => "Success! role(s) added"]);
+    }
+
+
  
 
 }
