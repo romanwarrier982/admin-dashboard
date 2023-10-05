@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //Seeding user 
         \App\Models\User::factory(1)->create();
+
+        //Seeding roles 
         \App\Models\Role::factory()
         ->count(5)
         ->state(new Sequence(
@@ -26,6 +29,8 @@ class DatabaseSeeder extends Seeder
             ['name' => 'General Staff'],
         ))
         ->create();
+
+        //Seeding permissions 
         \App\Models\Permission::factory()
         ->count(5)
         ->state(new Sequence(

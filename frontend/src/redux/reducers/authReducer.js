@@ -12,7 +12,7 @@ const authReducer = (state = initialState, action) => {
     case "LOG_IN":
     case "SIGN_UP":
     case "USER_LOADED":
-      toast("Welcome...😎😎" + action.user.data.name + "...", {
+      toast("Welcome " + action.user.data.name + " ", {
         position: toast.POSITION.TOP_RIGHT,
       });
 
@@ -26,7 +26,7 @@ const authReducer = (state = initialState, action) => {
 
     case "LOG_OUT":
       localStorage.removeItem("token");
-      toast("Goodbye... 😢😭", {
+      toast("Your are singned out", {
         position: toast.POSITION.TOP_RIGHT,
       });
       return {

@@ -11,7 +11,7 @@ class RoleController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('JWT');
+        $this->middleware('JWT', ['except' => ['index', 'search']]);
     }
     /**
      * Fetch products
