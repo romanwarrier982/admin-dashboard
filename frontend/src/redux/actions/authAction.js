@@ -54,10 +54,10 @@ export const loadUser = () => {
   };
 };
 
-export const signUpUser = (email, password, name) => {
+export const signUpUser = (email, password, name, role_id) => {
   return (dispatch) => {
     axios
-      .post(`${url}/auth/register`, { email, password, name })
+      .post(`${url}/auth/register`, { email, password, name, role_id })
       .then((token) => {
         localStorage.setItem("token", token.data.access_token);
 

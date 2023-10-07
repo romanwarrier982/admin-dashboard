@@ -88,7 +88,7 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
 
-
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:255|unique:users',
@@ -107,6 +107,7 @@ class AuthController extends Controller
         $user->save();
 
 
-        return $this->login($request);
+        // return $this->login($request);
+        return response()->json(['message' => 'Successfully added user']);
     }
 }

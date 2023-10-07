@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProduct } from "../../redux/actions/productAction";
+import { searchProduct } from "../../redux/actions/productAction";
 import { getUsers } from "../../redux/actions/userManagementAction";
-
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Pagination from "react-js-pagination";
 
 import Table from "@mui/material/Table";
@@ -12,9 +16,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import "./Table.css";
 import { TableFooter } from "@mui/material";
-import checklist from '../../imgs/reports.gif'
+import checklist from "../../imgs/reports.gif";
+import { getRoles } from "../../redux/actions/roleAction";
 
 const makeStyle = (price) => {
   if (price === 0) {
@@ -37,7 +41,8 @@ const makeStyle = (price) => {
 
 export default function UserList() {
   const dispatch = useDispatch();
-  const userList = useSelector((state)=>state.users.data);
+  const userList = useSelector((state) => state.users.data);
+  const roleList = useSelector((state) => state.roles);
   const paginationData = useSelector((state) => state.users);
   const auth = useSelector((state) => state.auth);
   const [searchKey, setSearchKey] = useState({
@@ -52,17 +57,25 @@ export default function UserList() {
     }
   };
   useEffect(() => {
-    dispatch(getProducts(page));
     dispatch(getUsers(page));
+    dispatch(getRoles());
   }, [dispatch, page.page]);
+
   const handlePageChange = (pageNumber) => {
     setActivePage({ page: pageNumber });
   };
-  
+
+  const [role, setRole] = useState("");
+
+  const handleChange = (event) => {
+    setRole(event.target.value);
+  };
 
   return (
     <div className="Table">
-      <h3>Recent Reports <img src={checklist} alt="icon" /> </h3>
+      <h3>
+        User List <img src={checklist} alt="icon" />{" "}
+      </h3>
       <TableContainer
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -71,30 +84,30 @@ export default function UserList() {
           <TableHead>
             <TableRow>
               <TableCell>
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text" id="basic-addon1">
-                    Search 🔍
-                  </span>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="basic-addon1">
+                      Search 🔍
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search for products..."
+                    aria-label="Search"
+                    aria-describedby="basic-addon1"
+                    onChange={(e) =>
+                      setSearchKey({ ...searchKey, searchKey: e.target.value })
+                    }
+                    onBlur={handleBlur}
+                    onKeyDown={handleBlur}
+                  />
                 </div>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search for products..."
-                  aria-label="Search"
-                  aria-describedby="basic-addon1"
-                  onChange={(e) =>
-                    setSearchKey({ ...searchKey, searchKey: e.target.value })
-                  }
-                  onBlur={handleBlur}
-                  onKeyDown={handleBlur}
-                />
-              </div>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Issue</TableCell>
-              <TableCell align="left">Tracking ID</TableCell>
+              <TableCell>User</TableCell>
+              <TableCell align="left">Role</TableCell>
               <TableCell align="left">Date</TableCell>
               <TableCell align="left">Status</TableCell>
               <TableCell align="left"></TableCell>
@@ -110,38 +123,34 @@ export default function UserList() {
                   <TableCell component="th" scope="row">
                     {user.email}
                   </TableCell>
-                  <TableCell align="left">{user.password}</TableCell>
-                  {/* <TableCell align="left">{user.created_at}</TableCell>
                   <TableCell align="left">
-                    <span className="status" style={makeStyle(user.price)}>
-                      {user.price}
-                    </span>
+                    {user?.role?.name}
                   </TableCell>
-                  <TableCell align="left" className="Details">
-                    Details
-                  </TableCell> */}
+                  <TableCell align="left">
+                    {user?.created_at}
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
-              <div>No Product Avaiable</div>
+              <div>No Users Avaiable</div>
             )}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TableCell>
-              {userList && (
-                <Pagination
-                  activePage={paginationData.current_page}
-                  itemsCountPerPage={paginationData.per_page}
-                  totalItemsCount={paginationData.total}
-                  pageRangeDisplayed={paginationData.last_page}
-                  onChange={handlePageChange}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                  firstPageText="First"
-                  lastPageText="Last"               
-                />
-              )}
+                {userList && (
+                  <Pagination
+                    activePage={paginationData.current_page}
+                    itemsCountPerPage={paginationData.per_page}
+                    totalItemsCount={paginationData.total}
+                    pageRangeDisplayed={paginationData.last_page}
+                    onChange={handlePageChange}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    firstPageText="First"
+                    lastPageText="Last"
+                  />
+                )}
               </TableCell>
             </TableRow>
           </TableFooter>

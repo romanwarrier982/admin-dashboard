@@ -20,7 +20,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(10);
+        $roles = Role::get();
         return response()->json(["status" => "success", "count" => count($roles), "data" => $roles]);
     }
 

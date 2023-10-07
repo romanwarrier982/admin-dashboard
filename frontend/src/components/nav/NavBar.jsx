@@ -82,65 +82,23 @@ export default function NavBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            <Link style={{ color: "white", textDecoration: "none" }} to="/">
-              📦📦 E-Shop 🛒 🛒
-            </Link>
+          <Typography style={{ color: "white" }} variant="subtitle2">
+            Logged in as {auth.name}
           </Typography>
+          <Button edge="end" color="inherit" onClick={() => handleLogOut()}>
+            <Link style={{ color: "white", textDecoration: "none" }} to="/">
+              log Out
+            </Link>
+          </Button>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search… (Press Enter)"
-              inputProps={{ "aria-label": "search" }}
-              onChange={(e) =>
-                setSearchKey({ ...searchKey, searchKey: e.target.value })
-              }
-              onBlur={handleBlur}
-              onKeyDown={handleBlur}
-            />
-          </Search>
-          {auth.id ? (
-            <>
-              <Typography style={{ color: "white" }} variant="subtitle2">
-                Logged in as {auth.name}
-              </Typography>
-              <Button edge="end" color="inherit" onClick={() => handleLogOut()}>
-                <Link style={{ color: "white", textDecoration: "none" }} to="/">
-                  log Out
-                </Link>
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button color="inherit">
-                <Link style={{ color: "white", textDecoration: "none" }} to="/login">
-                  LogIn
-                </Link>
-              </Button>
-              <Button color="inherit">
-                <Link style={{ color: "white", textDecoration: "none" }} to="/signup">
-                  SignUp
-                </Link>
-              </Button>
-            </>
-          )}
+          <Button color="inherit">
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/signup"
+            >
+              Add User
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

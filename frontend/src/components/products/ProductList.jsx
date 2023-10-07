@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, searchProduct } from "../../redux/actions/productAction";
 import Product from "./Product";
-import Pagination from "react-js-pagination";
-import WeatherApp from "../Weather/WeatherApp";
+import Pagination from "react-js-pagination"; 
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 const ProductList = ({ product, setProduct }) => {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ const ProductList = ({ product, setProduct }) => {
   };
   return (
     <div className="row">
-      {/* <WeatherApp></WeatherApp> */}
+    
       <div>
                 <ReactHTMLTableToExcel
                     id="test-table-xls-button"
