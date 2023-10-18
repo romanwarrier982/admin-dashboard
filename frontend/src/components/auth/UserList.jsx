@@ -93,7 +93,7 @@ export default function UserList() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search for products..."
+                    placeholder="Search for users..."
                     aria-label="Search"
                     aria-describedby="basic-addon1"
                     onChange={(e) =>

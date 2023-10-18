@@ -14,6 +14,7 @@ class Role extends Model
 
 }
 
+
 // $table->bigInteger('user_type_id')->unsigned();
 //             $table->bigInteger('permission_id')->unsigned();
 

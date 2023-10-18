@@ -137,3 +137,75 @@ export const UpdatesData = [
     time: "2 hours ago",
   },
 ];
+
+
+// User Management Cards Data
+export const userManagement = [
+
+{
+  title: "Example",
+  color: {
+    background: "linear-gradient(180deg, #FFFFFF 0%, #CCCCCC 100%)",
+    boxShadow: "0px 10px 20px 0px #CCCCCC",
+  },
+  barValue: 50,
+  value: "500",
+  png: UilExclamationTriangle,
+  series: [
+    {
+      name: "Example",
+      data: [10, 20, 30, 40, 50, 60, 70],
+    },
+  ],
+},
+
+  {
+    title: "Users",
+    color: {
+      backGround: "linear-gradient(180deg, #00FF00 0%, #00FF7F 100%)",
+      boxShadow: "0px 10px 20px 0px #90EE97",
+    },
+    barValue: 80,
+    value: "10",
+    png: UilCheckCircle,
+    series: [
+      {
+        name: "Users",
+        data: [10, 20, 30, 40, 50, 60, 70],
+      },
+    ],
+  },
+  {
+    title: "Roles",
+    color: {
+      backGround: "linear-gradient(180deg, #90EE9D 0%, #90EE90 100%)",
+      boxShadow: "0px 10px 20px 0px #90EE97",
+    },
+    barValue: 80,
+    value: "14,270",
+    png: UilCheckCircle,
+    series: [
+      {
+        name: "Roles",
+        data: [10, 100, 50, 70, 80, 30, 40],
+      },
+    ],
+  },
+  {
+    title: "Permissions",
+    color: {
+      backGround:
+        "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",
+      boxShadow: "0px 10px 20px 0px #F9D59B",
+    },
+    barValue: 60,
+    value: "4,270",
+    png: UilHourglass,
+    series: [
+      {
+        name: "Permissions",
+        data: [10, 25, 15, 30, 12, 15, 20],
+      },
+    ],
+  },
+];

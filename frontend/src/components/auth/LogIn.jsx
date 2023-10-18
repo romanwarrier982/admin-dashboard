@@ -28,7 +28,7 @@ const LogIn = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="row border justify-content-center">
+        <div className="bg-white row border justify-content-center">
           <div className="col-md-12  text-center p-2">
             <img style={{width:"200px", height:"200px"}} src={logo}></img>
           </div>

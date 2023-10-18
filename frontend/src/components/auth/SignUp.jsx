@@ -5,12 +5,16 @@ import { Typography, TextField, Button } from "@mui/material";
 import { logIn, loadUser, signUpUser } from "../../redux/actions/authAction";
 import { UilUserPlus } from "@iconscout/react-unicons";
 import UserList from "../../components/auth/UserList";
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { getRoles } from "../../redux/actions/roleAction";
+import Cards from "../Cards/Cards";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import UserManagementCards from "../Cards/UserManagementCards";
 const SignUp = () => {
   const auth = useSelector((state) => state.auth);
   const roleList = useSelector((state) => state.roles);
@@ -48,11 +52,13 @@ const SignUp = () => {
 
   return (
     <>
+    <h1 style={{paddingTop:'2rem'}}> <AdminPanelSettingsIcon variant="h1"></AdminPanelSettingsIcon> User Management</h1>
+    <UserManagementCards></UserManagementCards>
       <form style={{background: 'white'}} onSubmit={handleSubmit}>
         <div className="row border justify-content-center">
           <div className="col-md-6  text-center p-2 m-2">
             <Typography variant="h5">
-              <UilUserPlus></UilUserPlus>Add User
+              <UilUserPlus></UilUserPlus> Add User
             </Typography>
             <TextField
               id="enter-name"
@@ -103,8 +109,8 @@ const SignUp = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Button variant="contained" color="primary" type="submit">
-              SignUp
+            <Button className="p-2" variant="contained" color="primary" type="submit">
+             <PersonAddAltIcon></PersonAddAltIcon> Add User
             </Button>
           </div>
         </div>

@@ -77,7 +77,7 @@ export default function BasicTable() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Search for products..."
+                  placeholder="Search here..."
                   aria-label="Search"
                   aria-describedby="basic-addon1"
                   onChange={(e) =>
