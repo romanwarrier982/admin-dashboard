@@ -26,36 +26,43 @@ export const SidebarData = [
     icon: UilEstate,
     heading: "Dashboard",
     link: "/",
+    roles: [2],
   },
   {
     icon: UilClipboardAlt,
     heading: "Report",
     link: "/test",
+    roles: [1,2],
   },
   {
     icon: UilUsersAlt,
     heading: "User",
     link: "/signup",
+    roles: [1,2,3],
   },
   {
     icon: UilPackage,
     heading: 'Asset',
     link: "/asset",
+    roles: [1,2,3],
   },
   {
     icon: UilChart,
     heading: 'Inventory',
     link: "/test",
+    roles: [2,3],
   },
   {
     icon: UilEstate,
     heading: "Permissions",
     link: "/test",
+    roles: [2,3,4,5],
   },
   {
     icon: UilChart,
     heading: 'Analytics',
     link: "/test",
+    roles: [2,3,4,5],
   },
   
 ];

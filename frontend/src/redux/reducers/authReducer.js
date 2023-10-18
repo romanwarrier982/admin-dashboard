@@ -22,6 +22,7 @@ const authReducer = (state = initialState, action) => {
         name: action.user.data.name,
         email: action.user.data.email,
         id: action.user.data.id,
+        userData:action.user.data
       };
 
     case "LOG_OUT":

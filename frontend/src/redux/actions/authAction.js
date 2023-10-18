@@ -36,6 +36,7 @@ export const loadUser = () => {
       .post(`${url}/auth/me`, {}, setHeaders())
       .then((user) => {
         localStorage.setItem("me", user.data);
+        console.log("from actions", user);
         if (user) {
           dispatch({
             type: "USER_LOADED",

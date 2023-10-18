@@ -73,9 +73,13 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get the role associated with the user.
      */
-    public function role(): HasOne
-    {
-        return $this->hasOne(Role::class, 'id', 'role_id');
-    }
+    // public function role(): HasOne
+    // {
+    //     return $this->hasOne(Role::class, 'id', 'role_id');
+    // }
+    public function role()
+{
+    return $this->belongsTo(Role::class);
+}
 
 }
