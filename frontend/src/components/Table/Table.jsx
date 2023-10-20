@@ -58,13 +58,13 @@ export default function BasicTable() {
   };
 
   return (
-    <div className="Table">
+    <div style={{objectFit:"contain"}} className="Table">
       <h3>Recent Reports <img src={checklist} alt="icon" /> </h3>
       <TableContainer
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
       >
-        <Table sx={{ minWidth: 650, maxHeight: 500 }} aria-label="simple table">
+        <Table style={{objectFit:"contain"}} sx={{ minWidth: 650, maxHeight: 500 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>
@@ -97,7 +97,7 @@ export default function BasicTable() {
               <TableCell align="left"></TableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{ color: "white" }}>
+          <TableBody style={{ color: "white" , objectFit:"contain"}}>
             {productList ? (
               productList.map((product) => (
                 <TableRow

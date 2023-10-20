@@ -5,7 +5,10 @@ import {
   UilUsersAlt,
   UilPackage,
   UilChart,
+  UilUserCircle,
+  UilSchedule,
   UilSignOutAlt,
+  UilSitemap,
 } from "@iconscout/react-unicons";
 
 // Analytics Cards imports
@@ -29,17 +32,42 @@ export const SidebarData = [
     roles: [2],
   },
   {
+    icon: UilUserCircle,
+    heading: "My Profile",
+    link: "/profile",
+    roles: [1,2,3,4,5,6],
+  },
+  {
+    icon: UilClipboardAlt,
+    heading: "Issues",
+    link: "/test",
+    roles: [1,2],
+  },
+  {
     icon: UilClipboardAlt,
     heading: "Report",
     link: "/test",
     roles: [1,2],
   },
   {
+    icon: UilSchedule,
+    heading: "Schedules",
+    link: "/test",
+    roles: [1,2],
+  },
+  {
     icon: UilUsersAlt,
-    heading: "User",
+    heading: "Users",
     link: "/signup",
     roles: [1,2,3],
   },
+  {
+    icon: UilSitemap,
+    heading: "Roles",
+    link: "/roles",
+    roles: [1,2,3],
+  },
+  
   {
     icon: UilPackage,
     heading: 'Asset',

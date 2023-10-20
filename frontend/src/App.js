@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { Container } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./components/nav/NavBar";
+
 import LogIn from "./components/auth/LogIn";
 import ProductDashboard from "./components/products/ProductDashboard";
 import { ToastContainer } from "react-toastify";
@@ -14,6 +14,7 @@ import MainDash from "./components/MainDash/MainDash";
 import RightSide from "./components/RigtSide/RightSide";
 import Sidebar from "./components/Sidebar";
 import Test from "./components/test/test";
+import RoleForm from "./components/Role/RoleForm.jsx";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -42,6 +43,8 @@ function App() {
                       <Route path="/home" element={<MainDash />} />
                       <Route path="/asset" element={<ProductDashboard />} />
                       <Route path="/test" element={<Test></Test>} />
+                      <Route path="/roles" element={<RoleForm></RoleForm>} />
+                      
                     </Routes>
                   </Container>
                 </Container>
