@@ -15,6 +15,7 @@ import { getRoles } from "../../redux/actions/roleAction";
 import Cards from "../Cards/Cards";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import UserManagementCards from "../Cards/UserManagementCards";
+import RoleList from "./RoleList";
 const RoleForm = () => {
   const auth = useSelector((state) => state.auth);
   const roleList = useSelector((state) => state.roles);
@@ -115,7 +116,8 @@ const RoleForm = () => {
         </div>
       </form>
 
-      <UserList></UserList>
+<RoleList>  </RoleList>
+     
     </>
   );
 };
