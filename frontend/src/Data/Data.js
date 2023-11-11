@@ -46,7 +46,7 @@ export const SidebarData = [
   {
     icon: UilClipboardAlt,
     heading: "Report",
-    link: "/test",
+    link: "/reportHistory",
     roles: [1,2],
   },
   {

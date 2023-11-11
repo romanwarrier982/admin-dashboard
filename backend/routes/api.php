@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 
 
@@ -40,6 +41,11 @@ Route::post("roles_get", [RoleController::class, 'index'])->name("roles_get");
 
 //Permission APIs
 Route::post('permissions_get',[PermissionController::class, 'index'])->name('permissions_get');
+
+//Reports APIs
+Route::post('reports_get', [ReportController::class, 'getReports'])->name('reports_get');
+// Reports History APIs
+Route::post('report_history_get/{id}', [ReportController::class, 'getReportHistory'])->name('report_history_get');
 
 Route::group([
 
