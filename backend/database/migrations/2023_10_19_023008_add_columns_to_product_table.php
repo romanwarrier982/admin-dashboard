@@ -24,9 +24,6 @@ class AddColumnsToProductTable extends Migration
             $table->string('details')->nullable();
             $table->string('count')->nullable();
             $table->string('type')->nullable();
-            $table->string('room')->nullable();
-            $table->string('user')->nullable();
-            $table->string('history')->nullable();
         });
     }
 
@@ -39,7 +36,15 @@ class AddColumnsToProductTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->dropColumn('paid');
+            $table->dropColumn('status');
+            $table->dropColumn('supplier_id');
+            $table->dropColumn('expired_at');
+            $table->dropColumn('invoice_id');
+            $table->dropColumn('created_by');
+            $table->dropColumn('updated_by');
+            $table->dropColumn('details');
+            $table->dropColumn('count');
+            $table->dropColumn('type');
         });
     }
 }
