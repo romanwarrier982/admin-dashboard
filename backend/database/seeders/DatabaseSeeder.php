@@ -3,9 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\Report;
+use App\Models\ReportHistory;
 use App\Models\Role;
 use App\Models\Room;
 use App\Models\RoomType;
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -32,11 +36,29 @@ class DatabaseSeeder extends Seeder
                     'remember_token' => Str::random(1),
                     'role_id' => $i,
                 ]);
+
+            \App\Models\Supplier::factory()
+                ->create([
+                    'name' => 'Supplier' . $i,
+                    'email' => 'supplier' . $i . '@gmail.com',
+                    'phone' => '123456789',
+                    'address' => 'Supplier Address',
+                    'created_by' => '1',
+                    'updated_by' => '1',
+                    'status' => 'Active',
+
+                ]);
         }
         //seed room
         \App\Models\Room::factory(20)->create();
         //product seeder
         \App\Models\Product::factory(20)->create();
+
+        //Report Seeder
+        \App\Models\Report::factory(20)->create();
+        //report history seeder
+        \App\Models\ReportHistory::factory(100)->create();
+
 
         // see RoomType
 
