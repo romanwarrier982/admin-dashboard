@@ -12,7 +12,7 @@ import Badge from "@mui/material/Badge";
 const SingleReportCard = ({ report, history }) => {
   console.log("From Single Report Card:", report, history);
   const [spanColor, setSpanColor] = React.useState("warning");
-  // 'Pending', 'Resolved', 'Closed', 'In Progress','Opened', 'Active'
+
 
   React.useEffect(() => {
     if (report?.report_status === "Pending") {
@@ -86,10 +86,10 @@ const SingleReportCard = ({ report, history }) => {
       >
         <AspectRatio flex ratio="1" maxHeight={182} sx={{ minWidth: 182 }}>
           <img
-            src={report?.asset?.image_name}
-            srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+            src={"http://localhost:8000/uploads/" + report?.asset?.image_name}
+            srcSet={"http://localhost:8000/uploads/" + report?.asset?.image_name}
             loading="lazy"
-            alt=""
+            alt={report?.asset?.name}
           />
         </AspectRatio>
         <CardContent>
@@ -105,9 +105,7 @@ const SingleReportCard = ({ report, history }) => {
             <br></br>
             email : {report?.user?.email}
           </Typography>
-          <Typography level="body-sm" fontWeight="lg" textColor="text.tertiary">
-            Report Details : {report?.report_description}
-          </Typography>
+         
 
           <Sheet
             sx={{
@@ -125,24 +123,123 @@ const SingleReportCard = ({ report, history }) => {
                 Report Status
               </Typography>
               <Typography fontWeight="lg">
-                {"  "}
-                <Badge
-                  badgeContent={report?.report_status}
-                  color={spanColor}
-                ></Badge>
+              {report?.report_status}
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    paddingLeft: "10px",
+                    alignContent: "center",
+                  }}
+                >
+                  <Badge
+                    badgeContent={1}
+                    color={spanColor}
+                  ></Badge>
+                </div>
+              </Typography>
+            </div>
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Report Details
+              </Typography>
+              <Typography fontWeight="lg">{report?.report_description}</Typography>
+            </div>
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Report Type
+              </Typography>
+              <Typography fontWeight="lg">{report?.report_type}</Typography>
+            </div>
+          </Sheet>
+
+          <Sheet
+            sx={{
+              bgcolor: "background.level1",
+              borderRadius: "sm",
+              p: 1.5,
+              my: 1.5,
+              display: "flex",
+              gap: 2,
+              "& > div": { flex: 1 },
+            }}
+          >
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Asset Status
+              </Typography>
+              <Typography fontWeight="lg">
+                {report?.asset?.status}
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    paddingLeft: "10px",
+                    alignContent: "center",
+                  }}
+                >
+                  <Badge
+                    badgeContent={1}
+                    color={spanColor}
+                  ></Badge>
+                </div>
               </Typography>
             </div>
             <div>
               <Typography level="body-xs" fontWeight="lg">
                 Asset
               </Typography>
-              <Typography fontWeight="lg">980</Typography>
+              <Typography fontWeight="lg">{report?.asset?.name}</Typography>
             </div>
             <div>
               <Typography level="body-xs" fontWeight="lg">
-                Room
+                Expire Date
               </Typography>
-              <Typography fontWeight="lg">8.9</Typography>
+              <Typography fontWeight="lg">{report?.asset?.expired_at}</Typography>
+            </div>
+          </Sheet>
+
+          <Sheet
+            sx={{
+              bgcolor: "background.level1",
+              borderRadius: "sm",
+              p: 1.5,
+              my: 1.5,
+              display: "flex",
+              gap: 2,
+              "& > div": { flex: 1 },
+            }}
+          >
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Location Status
+              </Typography>
+              <Typography fontWeight="lg">
+                {"  "}
+                {report?.room?.room_status}
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    paddingLeft: "10px",
+                    alignContent: "center",
+                  }}
+                >
+                  {/* <Badge
+                    badgeContent={report?.room?.room_status}
+                    color={spanColor}
+                  ></Badge> */}
+                </div>
+              </Typography>
+            </div>
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Room Number
+              </Typography>
+              <Typography fontWeight="lg">{report?.room?.room_number}</Typography>
+            </div>
+            <div>
+              <Typography level="body-xs" fontWeight="lg">
+                Location Type
+              </Typography>
+              <Typography fontWeight="lg">{report?.room?.room_type?.type_name}</Typography>
             </div>
           </Sheet>
           <Box sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}>
@@ -150,7 +247,7 @@ const SingleReportCard = ({ report, history }) => {
               Chat
             </Button>
             <Button variant="solid" color="primary">
-              Follow
+              Email
             </Button>
           </Box>
         </CardContent>

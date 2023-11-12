@@ -4,6 +4,8 @@ const productReducer = (productList = [], action) => {
   switch (action.type) {
     case "GET_PRODUCTS":
       return action.productList;
+    case "GET_PRODUCTS_BY_USER_ID":
+      return action.productList;
     case "ADD_PRODUCT":
       toast.success("A new product was added", {
         position: toast.POSITION.TOP_RIGHT,

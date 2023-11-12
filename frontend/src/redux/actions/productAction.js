@@ -5,11 +5,55 @@ import { toast } from "react-toastify";
 export const getProducts = (pageNumber) => {
   return (dispatch) => {
     axios
-      .post(`${url}/products_get`,pageNumber, setHeaders())
+      .post(`${url}/products_get`, pageNumber, setHeaders())
       .then((products) => {
         var productList = products.data.data;
         dispatch({
           type: "GET_PRODUCTS",
+          productList,
+        });
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+};
+
+// get product by user_id
+
+export const getProductsByUserId = (id) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/products_by_user_id_get/${id}`, null, setHeaders())
+      .then((products) => {
+        var productList = products.data.data;
+        console.log("BY USER:", productList);
+        dispatch({
+          type: "GET_PRODUCTS_BY_USER_ID",
+          productList,
+        });
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+};
+
+//get product by Room ID
+
+export const getProductsByRoomId = (id) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/products_by_room_id_get/${id}`, null, setHeaders())
+      .then((products) => {
+        var productList = products.data.data;
+        console.log("BY Room:", productList);
+        dispatch({
+          type: "GET_PRODUCTS_BY_ROOM_ID",
           productList,
         });
       })
@@ -60,7 +104,6 @@ export const updateProduct = (updatedProduct) => {
         });
       })
       .catch((error) => {
-
         toast.error(error.response?.data, {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -96,7 +139,6 @@ export const searchProduct = (searchKey) => {
           type: "SEARCH_PRODUCT",
           productList,
         });
-        
       })
       .catch((error) => {
         toast.error(error.response?.data, {

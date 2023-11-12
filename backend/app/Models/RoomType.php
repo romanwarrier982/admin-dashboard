@@ -9,4 +9,8 @@ class RoomType extends Model
 {
     use HasFactory;
     protected $fillable = ["type_name","room_description","status", "created_by", "updated_by"];
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

@@ -11,7 +11,8 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import HotelIcon from "@mui/icons-material/Hotel";
 import { RepeatIcon, CancelRounded, DoneAllRounded } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
-
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 import { getReportHistory } from "../../redux/actions/reportAction";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -24,17 +25,16 @@ const ReportHistory = () => {
   const reportHistoryList = useSelector((state) => state.reportHistories);
 
   useEffect(() => {
-    dispatch(getReportHistory());
+    dispatch(getReportHistory(2));
   }, [dispatch]);
 
   return (
     <>
       <SingleReportCard
         report={reportHistoryList?.report}
-        
         history={reportHistoryList?.data}
       ></SingleReportCard>
-      <Timeline position="alternate">
+      <Timeline position="right">
         {reportHistoryList?.data &&
           reportHistoryList?.data.map((report) => {
             return (
@@ -80,8 +80,43 @@ const ReportHistory = () => {
                   <Typography variant="h6" component="span">
                     {report.report_status}
                   </Typography>
-                  <Typography>{report.assigned_description}</Typography>
+                  <Avatar
+                    alt={report?.assigned_by?.name}
+                    src="/static/images/avatar/1.jpg"
+                  />
+                  <Typography fontSize="xl" fontWeight="lg">
+                    Assigned By: {report?.assigned_by?.name} -{" "}
+                    {report?.assigned_by?.role?.name}
+                  </Typography>
+                  <Typography>
+                    Comment: {report.assigned_description}
+                  </Typography>
+                  <Typography fontSize="xl" fontWeight="lg">
+                    Assigned At : {report?.assigned_at}
+                  </Typography>
                 </TimelineContent>
+
+                {report?.forward_status !== "Not Forwarded" && (
+                  <TimelineContent sx={{ py: "12px", px: 2 }}>
+                    <Typography variant="h6" component="span">
+                      {report?.forward_status}
+                    </Typography>
+                    <Avatar
+                      alt={report?.forward_to?.name}
+                      src="/static/images/avatar/1.jpg"
+                    />
+                    <Typography fontSize="xl" fontWeight="lg">
+                      Assigned By: {report?.forward_to?.name} -{" "}
+                      {report?.forward_to?.role?.name}
+                    </Typography>
+                    <Typography>
+                      Comment: {report?.forward_description}
+                    </Typography>
+                    <Typography fontSize="xl" fontWeight="lg">
+                      Assigned At : {report?.forward_at}
+                    </Typography>
+                  </TimelineContent>
+                )}
               </TimelineItem>
             );
           })}

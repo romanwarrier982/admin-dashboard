@@ -125,4 +125,21 @@ class ProductController extends Controller
         $user = User::with('role')->paginate(10);
         return response()->json(["status" => "success", "data" => $user]);
     }
+
+    // get Product by user_id
+
+    public function getProductsByUserId($id)
+    {
+       
+        $product = Product::where('user_id', $id)->get();
+        return response()->json(["status" => "success", "data" => $product]);
+    }
+
+    // get product by room_id
+
+    public function getProductsByRoomId($id)
+    {
+        $product = Product::where('room_id', $id)->get();
+        return response()->json(["status" => "success", "data" => $product]);
+    }
 }

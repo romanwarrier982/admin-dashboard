@@ -40,12 +40,20 @@ Route::post('users_get', [ProductController::class, 'userList'])->name('users_ge
 Route::post("roles_get", [RoleController::class, 'index'])->name("roles_get");
 
 //Permission APIs
-Route::post('permissions_get',[PermissionController::class, 'index'])->name('permissions_get');
+Route::post('permissions_get', [PermissionController::class, 'index'])->name('permissions_get');
 
 //Reports APIs
 Route::post('reports_get', [ReportController::class, 'getReports'])->name('reports_get');
 // Reports History APIs
 Route::post('report_history_get/{id}', [ReportController::class, 'getReportHistory'])->name('report_history_get');
+
+Route::post('products_by_user_id_get/{id}', [ProductController::class, 'getProductsByUserId'])->name('products_by_user_id_get');
+
+Route::post('products_by_room_id_get/{id}', [ProductController::class, 'getProductsByRoomId'])->name('products_by_room_id_get');
+
+//Report By User ID
+
+Route::post('reports_by_user_id_get/{id}', [ReportController::class, 'getReportsByUserId'])->name('reports_by_user_id_get');
 
 Route::group([
 

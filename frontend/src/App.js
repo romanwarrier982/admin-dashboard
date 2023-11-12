@@ -16,6 +16,7 @@ import Sidebar from "./components/Sidebar";
 import Test from "./components/test/test";
 import RoleForm from "./components/Role/RoleForm.jsx";
 import ReportHistory from "./components/Reports/ReportHistory";
+import ProfileCard from "./components/Profile/ProfileCard";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -45,8 +46,11 @@ function App() {
                       <Route path="/asset" element={<ProductDashboard />} />
                       <Route path="/test" element={<Test></Test>} />
                       <Route path="/roles" element={<RoleForm></RoleForm>} />
-                      <Route path="/reportHistory" element={<ReportHistory />} />
-                      
+                      <Route
+                        path="/reportHistory"
+                        element={<ReportHistory />}
+                      />
+                      <Route path="/profile" element={<ProfileCard />} />
                     </Routes>
                   </Container>
                 </Container>

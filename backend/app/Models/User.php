@@ -14,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'room_id',
     ];
 
     /**
@@ -48,7 +49,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-        // Rest omitted for brevity
+    // Rest omitted for brevity
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -78,8 +79,15 @@ class User extends Authenticatable implements JWTSubject
     //     return $this->hasOne(Role::class, 'id', 'role_id');
     // }
     public function role()
-{
-    return $this->belongsTo(Role::class);
-}
+    {
+        return $this->belongsTo(Role::class);
+    }
 
+    /**
+     * Get the room associated with the user.
+     */
+    public function room(): HasOne
+    {
+        return $this->hasOne(Room::class, 'id', 'room_id');
+    }
 }

@@ -24,18 +24,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //Seeding user 
-        \App\Models\User::factory(1)->create();
+        \App\Models\User::factory(20)->create();
 
         for ($i = 1; $i <= 10; $i++) {
-            \App\Models\User::factory()
-                ->create([
-                    'name' => 'User' . $i,
-                    'email' => 'user' . $i . '@gmail.com',
-                    'email_verified_at' => now(),
-                    'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                    'remember_token' => Str::random(1),
-                    'role_id' => $i,
-                ]);
+           
 
             \App\Models\Supplier::factory()
                 ->create([

@@ -35,7 +35,7 @@ export const SidebarData = [
     icon: UilUserCircle,
     heading: "My Profile",
     link: "/profile",
-    roles: [1,2,3,4,5,6],
+    roles: [1,2,3,4,5,6,7,8,9,10],
   },
   {
     icon: UilClipboardAlt,

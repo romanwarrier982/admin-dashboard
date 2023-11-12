@@ -28,6 +28,8 @@ class ProductFactory extends Factory
             'type' => $this->faker->randomElement(['Electronics', 'Software', 'Hardware', 'Other']),
             'created_by' => 1,
             'updated_by' => 1,
+            'user_id' => $this->faker->numberBetween(1, 10),
+            'room_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

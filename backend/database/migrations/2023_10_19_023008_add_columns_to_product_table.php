@@ -24,6 +24,8 @@ class AddColumnsToProductTable extends Migration
             $table->string('details')->nullable();
             $table->string('count')->nullable();
             $table->string('type')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('room_id')->nullable();
         });
     }
 
@@ -45,6 +47,8 @@ class AddColumnsToProductTable extends Migration
             $table->dropColumn('details');
             $table->dropColumn('count');
             $table->dropColumn('type');
+            $table->dropColumn('user_id');
+            $table->dropColumn('room_id');
         });
     }
 }
