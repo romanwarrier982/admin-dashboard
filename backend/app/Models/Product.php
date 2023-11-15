@@ -23,4 +23,13 @@ class Product extends Model
     {
         return $this->belongsTo(Room::class);
     }
+
+    // Product Has Reports
+    // Product Has zero or many reports
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'asset_id', 'id');
+    }
+
 }

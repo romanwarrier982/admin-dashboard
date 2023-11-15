@@ -20,9 +20,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
-        return response()->json(["status" => "success", "count" => count($products), "data" => $products]);
+        $products = Product::with('reports', 'reports.history')->paginate(10);
+        return response()->json(["status" => "success", "count" => $products, "data" => $products]);
     }
+
+    
 
     /**
      * Upload products
@@ -131,7 +133,7 @@ class ProductController extends Controller
     public function getProductsByUserId($id)
     {
        
-        $product = Product::where('user_id', $id)->get();
+        $product = Product::with('reports', 'reports.history')->where('user_id', $id)->get();
         return response()->json(["status" => "success", "data" => $product]);
     }
 
@@ -139,7 +141,7 @@ class ProductController extends Controller
 
     public function getProductsByRoomId($id)
     {
-        $product = Product::where('room_id', $id)->get();
+        $product = Product::with('reports', 'reports.history')->where('room_id', $id)->get();
         return response()->json(["status" => "success", "data" => $product]);
     }
 }

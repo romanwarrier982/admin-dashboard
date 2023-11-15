@@ -96,7 +96,9 @@ const ProfileCard = () => {
             loading="lazy"
             alt=""
           /> */}
-          <Avatar alt={auth?.name} src="/static/images/avatar/1.jpg"></Avatar>
+
+{/* src={"http://localhost:8000/uploads/" + product.image_name} */}
+          <Avatar alt={auth?.name} src="http://localhost:8000/uploads/user.png"></Avatar>
         </AspectRatio>
         <CardContent>
           <Typography fontSize="xl" fontWeight="lg">

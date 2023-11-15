@@ -105,12 +105,15 @@ const ProductList = ({ product, setProduct }) => {
       {productList &&
         productList.map((product) => {
           return (
+            <>
+            
             <Product
               product={product}
               productList={productList}
               key={product.id}
               setProduct={setProduct}
             ></Product>
+            </>
           );
         })}
 

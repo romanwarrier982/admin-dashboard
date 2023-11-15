@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ButtonGroup, Button } from "@mui/material";
-import { Create, Delete } from "@mui/icons-material";
+import { Create, Delete, InfoRounded } from "@mui/icons-material";
 import { deleteProduct, getProducts } from "../../redux/actions/productAction";
 
 const Product = ({ product, productList, setProduct }) => {
@@ -10,7 +10,9 @@ const Product = ({ product, productList, setProduct }) => {
   const dispatch = useDispatch();
 
   const handleOnUpdateClick = (select) => {
-    const searchedProduct = productList.find((product) => product.id === select.id);
+    const searchedProduct = productList.find(
+      (product) => product.id === select.id
+    );
     setProduct({ ...searchedProduct });
     window.scrollTo({
       top: 0,
@@ -28,7 +30,7 @@ const Product = ({ product, productList, setProduct }) => {
     <div style={{ width: "30rem", height: "30rem" }} className="col-md-4 p-5">
       <div className="card p-1">
         <img
-          alt="hello"
+          alt={product.name}
           src={"http://localhost:8000/uploads/" + product.image_name}
           className="card-img-top img-fluid img-bordered"
           style={{
@@ -39,18 +41,35 @@ const Product = ({ product, productList, setProduct }) => {
           }}
         />
         <h6 className="card-title">Product : {product.name}</h6>
-        <p className="card-text">Price : {product.price}</p>
+        <p className="card-title">Invoice : {product.invoice_id}</p>
+        <p className="card-title">Details: {product.details}</p>
+        <h6 className="card-title">Type : {product.type}</h6>
+
         <div className="card-footer">
-          {auth.id ? (
+          {auth.id &&
+          (auth.id == product.user_id ||
+            auth.userData.room_id == product.room_id ||
+            auth.userData.role.name === "Admin" ||
+            "Super Admin") ? (
             <ButtonGroup
               size="small"
               aria-label="outlined primary button group"
             >
-              <Button onClick={() => handleOnUpdateClick(product)}>
-                <Create color="primary" />
-              </Button>
+              {auth.userData.role.name === "Admin" ||
+                (auth.userData.role.name === "Super Admin" && (
+                  <>
+                    <Button onClick={() => handleOnUpdateClick(product)}>
+                      <Create color="primary" />
+                      Edit
+                    </Button>
+
+                    <Button onClick={() => handleDelete(product)}>
+                      <Delete color="error" /> Delete {auth.userData.role.name}
+                    </Button>
+                  </>
+                ))}
               <Button onClick={() => handleDelete(product)}>
-                <Delete color="secondary" />
+                <InfoRounded color="warning" /> Report an Issue
               </Button>
             </ButtonGroup>
           ) : null}
