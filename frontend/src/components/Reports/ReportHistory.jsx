@@ -19,13 +19,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import SingleReport from "./SingleReport";
 import SingleReportCard from "./SingleReportCard";
-
+import { useParams } from "react-router-dom";
 const ReportHistory = () => {
+
+  
   const dispatch = useDispatch();
   const reportHistoryList = useSelector((state) => state.reportHistories);
+  
+const {id} = useParams();
 
+console.log("Report History:", id);
   useEffect(() => {
-    dispatch(getReportHistory(2));
+    dispatch(getReportHistory(id));
   }, [dispatch]);
 
   return (

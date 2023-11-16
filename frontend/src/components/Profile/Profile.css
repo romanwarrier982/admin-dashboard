@@ -1,0 +1,22 @@
+.horizontal-scroll-container {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping to the next line */
+  
+    /* You can customize the following styles based on your needs */
+    border: 1px solid #ddd; /* Add a border for visual clarity */
+    padding: 10px; /* Add some padding for aesthetics */
+  }
+  
+  .scroll-content {
+    display: inline-block; /* Make the content display in a line */
+  }
+  
+  .item {
+    display: inline-block; /* Make items display in a line */
+    min-width: 200px; /* Set a minimum width for each item */
+    border: 1px solid #ccc; /* Add a border around each item for visual clarity */
+    white-space: wrap; /* Allow text to wrap */
+    margin-right: 10px; /* Add some margin between items for spacing */
+  }
+  

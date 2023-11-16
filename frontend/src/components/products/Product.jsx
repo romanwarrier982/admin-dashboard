@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ButtonGroup, Button } from "@mui/material";
-import { Create, Delete, InfoRounded } from "@mui/icons-material";
+import {
+  Create,
+  Delete,
+  InfoRounded,
+  RemoveRedEyeOutlined,
+} from "@mui/icons-material";
 import { deleteProduct, getProducts } from "../../redux/actions/productAction";
+import { Link } from "react-router-dom";
 
 const Product = ({ product, productList, setProduct }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const data = "adfdsfsd";
+  const dataToSend = "HelloFromComponentA";
 
   const handleOnUpdateClick = (select) => {
     const searchedProduct = productList.find(
@@ -50,10 +58,10 @@ const Product = ({ product, productList, setProduct }) => {
           (auth.id == product.user_id ||
             auth.userData.room_id == product.room_id ||
             auth.userData.role.name === "Admin" ||
-            "Super Admin") ? (
+            auth.userData.role.name === "Super Admin") ? (
             <ButtonGroup
               size="small"
-              aria-label="outlined primary button group"
+              aria-label=" small outlined primary button group"
             >
               {auth.userData.role.name === "Admin" ||
                 (auth.userData.role.name === "Super Admin" && (
@@ -64,12 +72,21 @@ const Product = ({ product, productList, setProduct }) => {
                     </Button>
 
                     <Button onClick={() => handleDelete(product)}>
-                      <Delete color="error" /> Delete {auth.userData.role.name}
+                      <Delete color="error" /> Delete
                     </Button>
                   </>
                 ))}
               <Button onClick={() => handleDelete(product)}>
-                <InfoRounded color="warning" /> Report an Issue
+                <InfoRounded color="warning" /> Report
+              </Button>
+
+              <Button>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/reportHistory/${product.id}`}
+                >
+                  <RemoveRedEyeOutlined color="success" /> View
+                </Link>
               </Button>
             </ButtonGroup>
           ) : null}

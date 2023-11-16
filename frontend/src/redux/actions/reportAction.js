@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const getReportHistory = (id) => {
   return (dispatch) => {
     axios
-      .post(`${url}/report_history_get/2`,id, setHeaders())
+      .post(`${url}/report_history_get/${id}`,id, setHeaders())
       .then((reportHistories) => {
         var reportHistoryList = reportHistories.data;
         console.log("From Redux", reportHistoryList);
@@ -33,6 +33,28 @@ export const getReportByUserId = (id) => {
         console.log("BY USER:", reportList);
         dispatch({
           type: "GET_REPORT_BY_USER_ID",
+          reportList,
+        });
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+}
+
+// get Report by user_id
+
+export const getReports= (pageNumber) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/reports_get`, pageNumber, setHeaders())
+      .then((reports) => {
+        var reportList = reports.data;
+        console.log("ALL Reports:", reportList);
+        dispatch({
+          type: "GET_REPORTS",
           reportList,
         });
       })

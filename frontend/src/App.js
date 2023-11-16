@@ -47,8 +47,8 @@ function App() {
                       <Route path="/test" element={<Test></Test>} />
                       <Route path="/roles" element={<RoleForm></RoleForm>} />
                       <Route
-                        path="/reportHistory"
-                        element={<ReportHistory />}
+                        path="/reportHistory/:id"
+                        element={<ReportHistory></ReportHistory>}
                       />
                       <Route path="/profile" element={<ProfileCard />} />
                     </Routes>
@@ -56,9 +56,12 @@ function App() {
                 </Container>
               </div>
 
-              <div className="rightside">
-                <RightSide></RightSide>
-              </div>
+              {auth?.userData?.role?.name === "Admin" ||
+                (auth?.userData?.role?.name === "Super Admin" && (
+                  <div className="rightside">
+                    <RightSide></RightSide>
+                  </div>
+                ))}
             </div>
           ) : (
             <Container maxWidth={false}>

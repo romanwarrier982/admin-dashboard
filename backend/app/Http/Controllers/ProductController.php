@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Report;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -20,11 +21,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('reports', 'reports.history')->paginate(10);
-        return response()->json(["status" => "success", "count" => $products, "data" => $products]);
+        $products = Product::with('user', 'room', 'reports', 'reports.history')->paginate(10);
+        $resolved = Report::where('report_status', 'Resolved')->count();
+        $pending = Report::where('report_status', 'Pending')->count();
+        $closed = Report::where('report_status', 'Closed')->count();
+        $opended = Report::where('report_status', 'Opened')->count();
+        return response()->json(["status" => "success", "data" => $products, "resolved" => $resolved, "pending" => $pending, "closed" => $closed, "opended" => $opended]);
     }
 
-    
+
 
     /**
      * Upload products
@@ -132,7 +137,7 @@ class ProductController extends Controller
 
     public function getProductsByUserId($id)
     {
-       
+
         $product = Product::with('reports', 'reports.history')->where('user_id', $id)->get();
         return response()->json(["status" => "success", "data" => $product]);
     }

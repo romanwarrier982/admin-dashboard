@@ -8,11 +8,13 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
+import { useDispatch, useSelector } from "react-redux";
 
 const SingleReportCard = ({ report, history }) => {
+  const auth = useSelector((state) => state.auth);
+
   console.log("From Single Report Card:", report, history);
   const [spanColor, setSpanColor] = React.useState("warning");
-
 
   React.useEffect(() => {
     if (report?.report_status === "Pending") {
@@ -49,7 +51,7 @@ const SingleReportCard = ({ report, history }) => {
           bottom: "-24px",
           "&::before": {
             top: "4px",
-            content: '"vertical"',
+
             display: "block",
             position: "absolute",
             right: "0.5rem",
@@ -59,7 +61,7 @@ const SingleReportCard = ({ report, history }) => {
           },
           "&::after": {
             top: "4px",
-            content: '"horizontal"',
+
             display: "block",
             position: "absolute",
             left: "0.5rem",
@@ -84,10 +86,12 @@ const SingleReportCard = ({ report, history }) => {
           resize: "horizontal",
         }}
       >
-        <AspectRatio flex ratio="1" maxHeight={182} sx={{ minWidth: 182 }}>
+        <AspectRatio objectFit="contain" flex ratio="1" maxHeight={182} sx={{ minWidth: 182 }}>
           <img
             src={"http://localhost:8000/uploads/" + report?.asset?.image_name}
-            srcSet={"http://localhost:8000/uploads/" + report?.asset?.image_name}
+            srcSet={
+              "http://localhost:8000/uploads/" + report?.asset?.image_name
+            }
             loading="lazy"
             alt={report?.asset?.name}
           />
@@ -96,7 +100,7 @@ const SingleReportCard = ({ report, history }) => {
           <Typography fontSize="xl" fontWeight="lg">
             <Avatar
               alt={report?.user?.name}
-              src="/static/images/avatar/1.jpg"
+              src="http://localhost:8000/uploads/user.png"
             />
             {report?.user?.name}
           </Typography>
@@ -105,7 +109,6 @@ const SingleReportCard = ({ report, history }) => {
             <br></br>
             email : {report?.user?.email}
           </Typography>
-         
 
           <Sheet
             sx={{
@@ -123,7 +126,7 @@ const SingleReportCard = ({ report, history }) => {
                 Report Status
               </Typography>
               <Typography fontWeight="lg">
-              {report?.report_status}
+                {report?.report_status}
                 <div
                   style={{
                     marginLeft: "10px",
@@ -132,7 +135,7 @@ const SingleReportCard = ({ report, history }) => {
                   }}
                 >
                   <Badge
-                    badgeContent={1}
+                    badgeContent={history?.length}
                     color={spanColor}
                   ></Badge>
                 </div>
@@ -142,7 +145,9 @@ const SingleReportCard = ({ report, history }) => {
               <Typography level="body-xs" fontWeight="lg">
                 Report Details
               </Typography>
-              <Typography fontWeight="lg">{report?.report_description}</Typography>
+              <Typography fontWeight="lg">
+                {report?.report_description}
+              </Typography>
             </div>
             <div>
               <Typography level="body-xs" fontWeight="lg">
@@ -152,104 +157,118 @@ const SingleReportCard = ({ report, history }) => {
             </div>
           </Sheet>
 
-          <Sheet
-            sx={{
-              bgcolor: "background.level1",
-              borderRadius: "sm",
-              p: 1.5,
-              my: 1.5,
-              display: "flex",
-              gap: 2,
-              "& > div": { flex: 1 },
-            }}
-          >
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Asset Status
-              </Typography>
-              <Typography fontWeight="lg">
-                {report?.asset?.status}
-                <div
-                  style={{
-                    marginLeft: "10px",
-                    paddingLeft: "10px",
-                    alignContent: "center",
+          {auth.userData.role.name === "Admin" ||
+            (auth.userData.role.name === "Super Admin" && (
+              <>
+                <Sheet
+                  sx={{
+                    bgcolor: "background.level1",
+                    borderRadius: "sm",
+                    p: 1.5,
+                    my: 1.5,
+                    display: "flex",
+                    gap: 2,
+                    "& > div": { flex: 1 },
                   }}
                 >
-                  <Badge
-                    badgeContent={1}
-                    color={spanColor}
-                  ></Badge>
-                </div>
-              </Typography>
-            </div>
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Asset
-              </Typography>
-              <Typography fontWeight="lg">{report?.asset?.name}</Typography>
-            </div>
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Expire Date
-              </Typography>
-              <Typography fontWeight="lg">{report?.asset?.expired_at}</Typography>
-            </div>
-          </Sheet>
-
-          <Sheet
-            sx={{
-              bgcolor: "background.level1",
-              borderRadius: "sm",
-              p: 1.5,
-              my: 1.5,
-              display: "flex",
-              gap: 2,
-              "& > div": { flex: 1 },
-            }}
-          >
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Location Status
-              </Typography>
-              <Typography fontWeight="lg">
-                {"  "}
-                {report?.room?.room_status}
-                <div
-                  style={{
-                    marginLeft: "10px",
-                    paddingLeft: "10px",
-                    alignContent: "center",
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Asset Status
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {report?.asset?.status}
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          paddingLeft: "10px",
+                          alignContent: "center",
+                        }}
+                      >
+                        <Badge
+                          badgeContent={report?.asset?.count}
+                          color={spanColor}
+                        ></Badge>
+                      </div>
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Asset
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {report?.asset?.name}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Expire Date
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {report?.asset?.expired_at}
+                    </Typography>
+                  </div>
+                </Sheet>
+                <Sheet
+                  sx={{
+                    bgcolor: "background.level1",
+                    borderRadius: "sm",
+                    p: 1.5,
+                    my: 1.5,
+                    display: "flex",
+                    gap: 2,
+                    "& > div": { flex: 1 },
                   }}
                 >
-                  {/* <Badge
-                    badgeContent={report?.room?.room_status}
-                    color={spanColor}
-                  ></Badge> */}
-                </div>
-              </Typography>
-            </div>
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Room Number
-              </Typography>
-              <Typography fontWeight="lg">{report?.room?.room_number}</Typography>
-            </div>
-            <div>
-              <Typography level="body-xs" fontWeight="lg">
-                Location Type
-              </Typography>
-              <Typography fontWeight="lg">{report?.room?.room_type?.type_name}</Typography>
-            </div>
-          </Sheet>
-          <Box sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}>
-            <Button variant="outlined" color="neutral">
-              Chat
-            </Button>
-            <Button variant="solid" color="primary">
-              Email
-            </Button>
-          </Box>
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Location Status
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {"  "}
+                      {report?.room?.room_status}
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          paddingLeft: "10px",
+                          alignContent: "center",
+                        }}
+                      >
+                        {/* <Badge
+                      badgeContent={report?.room?.room_status}
+                      color={spanColor}
+                    ></Badge> */}
+                      </div>
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Room Number
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {report?.room?.room_number}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography level="body-xs" fontWeight="lg">
+                      Location Type
+                    </Typography>
+                    <Typography fontWeight="lg">
+                      {report?.room?.room_type?.type_name}
+                    </Typography>
+                  </div>
+                </Sheet>
+                <Box
+                  sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}
+                >
+                  <Button variant="outlined" color="neutral">
+                    Chat
+                  </Button>
+                  <Button variant="solid" color="primary">
+                    Email
+                  </Button>
+                </Box>
+              </>
+            ))}
         </CardContent>
       </Card>
     </Box>

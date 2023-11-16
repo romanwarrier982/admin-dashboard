@@ -56,6 +56,7 @@ export default function BasicTable() {
   const handlePageChange = (pageNumber) => {
     setActivePage({ page: pageNumber });
   };
+  console.log(productList);
 
   return (
     <div style={{objectFit:"contain"}} className="Table">
@@ -90,11 +91,12 @@ export default function BasicTable() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Issue</TableCell>
-              <TableCell align="left">Tracking ID</TableCell>
-              <TableCell align="left">Date</TableCell>
+              <TableCell>Product</TableCell>
+              <TableCell align="left">Report</TableCell>
+              <TableCell align="left">Type</TableCell>
               <TableCell align="left">Status</TableCell>
-              <TableCell align="left"></TableCell>
+              <TableCell align="left">Opend</TableCell>
+              <TableCell align="left">Last Update</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" , objectFit:"contain"}}>
