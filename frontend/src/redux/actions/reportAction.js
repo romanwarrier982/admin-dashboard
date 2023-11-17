@@ -66,6 +66,26 @@ export const getReports= (pageNumber) => {
   };
 }
 
+// update report status and report history with assign to user id
+
+export const updateReportStatus = (report) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/update_report_status`, report, setHeaders())
+      .then((response) => {
+        dispatch({
+          type: "UPDATE_REPORT_STATUS",
+          response,
+        });
+      })
+      .catch((error) => {
+        toast.error(error.response?.data, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+}
+
 // export const addProduct = (newProduct) => {
 //   const data = new FormData();
 //   data.append("images", newProduct.images);

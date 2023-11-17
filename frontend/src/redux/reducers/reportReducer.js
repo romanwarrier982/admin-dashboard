@@ -6,6 +6,11 @@ const reportReducer = (reportList = [], action) => {
       return action.reportList;
     case "GET_REPORTS":
       return action.reportList;
+    case "UPDATE_REPORT_STATUS":
+      toast.success("A product was updated !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return reportList;
     default:
       return reportList;
   }

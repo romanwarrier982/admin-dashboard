@@ -218,8 +218,8 @@ const ProfileCard = () => {
       </div>
       <div className="horizontal-scroll-container">
         <div className="scroll-content">
-          {roomProductList &&
-            roomProductList.map((product) => {
+          {roomProductList.length &&
+            roomProductList?.map((product) => {
               return (
                 <div className="item">
                   <Product
@@ -242,13 +242,14 @@ const ProfileCard = () => {
       </div>
       <div className="horizontal-scroll-container">
         <div className="scroll-content">
-          {userReportList &&
-            userReportList.map((report) => {
+          {userReportList.length &&
+            userReportList?.map((report) => {
               return (
                 <div className="item" style={{ width: "25%" }}>
                   <SingleReportCard
                     report={report}
                     history={report?.history}
+                    component={"Profile"}
                   ></SingleReportCard>
                 </div>
               );

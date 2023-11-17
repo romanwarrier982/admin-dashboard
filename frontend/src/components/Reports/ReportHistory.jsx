@@ -21,14 +21,12 @@ import SingleReport from "./SingleReport";
 import SingleReportCard from "./SingleReportCard";
 import { useParams } from "react-router-dom";
 const ReportHistory = () => {
-
-  
   const dispatch = useDispatch();
   const reportHistoryList = useSelector((state) => state.reportHistories);
-  
-const {id} = useParams();
 
-console.log("Report History:", id);
+  const { id } = useParams();
+
+  console.log("Report History:", id);
   useEffect(() => {
     dispatch(getReportHistory(id));
   }, [dispatch]);
@@ -38,6 +36,7 @@ console.log("Report History:", id);
       <SingleReportCard
         report={reportHistoryList?.report}
         history={reportHistoryList?.data}
+        component={"ReportHistory"}
       ></SingleReportCard>
       <Timeline position="right">
         {reportHistoryList?.data &&

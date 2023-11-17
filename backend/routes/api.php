@@ -36,6 +36,13 @@ Route::post('product_search', [ProductController::class, 'search'])->name('produ
 //User APIs
 Route::post('users_get', [ProductController::class, 'userList'])->name('users_get');
 
+//getUserListByRoleId get user list by role id
+Route::post('users_get_by_role_id/{id}', [ProductController::class, 'getUserListByRoleId'])->name('users_get_by_role_id');      
+
+// update report status and report history with assign to user id
+
+Route::post('update_report_status', [ReportController::class, 'updateReportStatus'])->name('update_report_status');
+
 //Roles APIs
 Route::post("roles_get", [RoleController::class, 'index'])->name("roles_get");
 

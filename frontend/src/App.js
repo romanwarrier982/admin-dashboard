@@ -17,6 +17,8 @@ import Test from "./components/test/test";
 import RoleForm from "./components/Role/RoleForm.jsx";
 import ReportHistory from "./components/Reports/ReportHistory";
 import ProfileCard from "./components/Profile/ProfileCard";
+import ReportList from "./components/Reports/ReportList.jsx";
+import MakeReportForm from "./components/Reports/MakeReportForm.jsx";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -50,7 +52,9 @@ function App() {
                         path="/reportHistory/:id"
                         element={<ReportHistory></ReportHistory>}
                       />
+                      <Route path="/reportHistory" exact element={<ReportList />} />
                       <Route path="/profile" element={<ProfileCard />} />
+                      <Route path="/make_report" element={<MakeReportForm />} />
                     </Routes>
                   </Container>
                 </Container>

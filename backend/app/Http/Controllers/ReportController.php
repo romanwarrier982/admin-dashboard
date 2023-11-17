@@ -19,7 +19,7 @@ class ReportController extends Controller
      */
     public function getReports()
     {
-        $reports = Report::with('room', 'user', 'asset', 'history')->paginate(10);
+        $reports = Report::with('room', 'user', 'asset', 'user.role', 'room.room_type', 'asset.supplier', 'history')->paginate(10);
 
         $resolved = Report::where('report_status', 'Resolved')->count();
         $pending = Report::where('report_status', 'Pending')->count();
@@ -38,7 +38,10 @@ class ReportController extends Controller
 
     public function getReportsByUserId($id)
     {
-        $reports = Report::with('room', 'user', 'asset')->where('user_id', $id)->get();
+
+        $reports = Report::with('room', 'user', 'asset', 'user.role', 'room.room_type', 'asset.supplier')->where('user_id', $id)->get();
+
+
         return response()->json(["status" => "success", "count" => count($reports), "data" => $reports]);
     }
 
@@ -66,7 +69,7 @@ class ReportController extends Controller
         return response()->json(["status" => "success", "count" => count($reportHistory), "data" => $reportHistory, "report" => $report]);
     }
 
-      /**
+    /**
      * Search product
      * @param NA
      * @return JSON response
@@ -75,5 +78,26 @@ class ReportController extends Controller
     {
 
         return Report::where('status', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(25);
+    }
+
+    // update report status and report history with assign to user id
+
+    public function updateReportStatus(Request $request)
+    {
+
+        $report = Report::find($request->id);
+        $report->report_status = $request->report_status;
+        $report->save();
+
+        $reportHistory = new ReportHistory();
+        $reportHistory->report_id = $request->id;
+        $reportHistory->assigned_to = $request->assigned_to;
+        $reportHistory->assigned_by = $request->assigned_by;
+        $reportHistory->assigned_description = $request->assigned_description;
+        $reportHistory->assigned_status = $request->assigned_status;
+
+        $reportHistory->save();
+
+        return response()->json(["status" => "success", "message" => "Report Updated Successfully"]);
     }
 }

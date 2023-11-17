@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['index', 'search', 'userList']]);
+        $this->middleware('JWT', ['except' => ['index', 'search', 'userList', 'getUserListByRoleId']]);
     }
     /**
      * Fetch products
@@ -130,6 +130,14 @@ class ProductController extends Controller
     public function userList()
     {
         $user = User::with('role')->paginate(10);
+        return response()->json(["status" => "success", "data" => $user]);
+    }
+
+    //get userlist by role_id
+
+    public function getUserListByRoleId($id)
+    {
+        $user = User::with('role')->where('role_id', $id)->get();
         return response()->json(["status" => "success", "data" => $user]);
     }
 
