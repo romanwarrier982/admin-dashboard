@@ -163,52 +163,7 @@ const ProfileCard = () => {
             </Box>
           </CardContent>
         </Card>
-        <Sheet
-          sx={{
-            bgcolor: "background.level1",
-            borderRadius: "sm",
-            p: 1.5,
-            my: 1.5,
-            display: "flex",
-            gap: 2,
-            "& > div": { flex: 1 },
-          }}
-        >
-          <div>
-            <Typography level="body-lg" fontWeight="lg">
-              Assets
-            </Typography>
-            <Typography fontWeight="lg">
-              {userProductList.length + roomProductList.length}
-            </Typography>
-          </div>
-          <div>
-            <Typography level="body-xs" fontWeight="lg">
-              Room
-            </Typography>
-            <Typography fontWeight="lg">
-              {auth?.userData?.room?.room_number}
-            </Typography>
-          </div>
-          <div>
-            <Typography level="body-xs" fontWeight="lg">
-              Reports
-            </Typography>
-            <Typography fontWeight="lg">{userReportList?.length}</Typography>
-          </div>
-          <div>
-            <Typography level="body-xs" fontWeight="lg">
-              Reports
-            </Typography>
-            <Typography fontWeight="lg">{userReportList?.length}</Typography>
-          </div>
-          <div>
-            <Typography level="body-xs" fontWeight="lg">
-              Reports
-            </Typography>
-            <Typography fontWeight="lg">{userReportList?.length}</Typography>
-          </div>
-        </Sheet>
+
       </Box>
       <div>
         <Typography variant="h1" fontWeight="lg">

@@ -96,6 +96,17 @@ class ReportController extends Controller
         $reportHistory->assigned_description = $request->assigned_description;
         $reportHistory->assigned_status = $request->assigned_status;
 
+        $reportHistory->report_status = $request->report_status;
+        // $reportHistory->forward_to = $request->forward_to;
+        // $reportHistory->forward_by = $request->forward_by;
+        // $reportHistory->forward_description = $request->forward_description;
+        // $reportHistory->forward_status = $request->forward_status;
+
+        // $reportHistory->resolved_by = $request->resolved_by;
+        // $reportHistory->resolved_description = $request->resolved_description;
+        // $reportHistory->resolved_status = $request->resolved_status;
+    
+
         $reportHistory->save();
 
         return response()->json(["status" => "success", "message" => "Report Updated Successfully"]);

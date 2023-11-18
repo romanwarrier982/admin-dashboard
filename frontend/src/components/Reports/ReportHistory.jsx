@@ -8,6 +8,7 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
+import { AlarmOn } from "@mui/icons-material";
 import HotelIcon from "@mui/icons-material/Hotel";
 import { RepeatIcon, CancelRounded, DoneAllRounded } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
@@ -20,6 +21,7 @@ import { Cancel } from "@mui/icons-material";
 import SingleReport from "./SingleReport";
 import SingleReportCard from "./SingleReportCard";
 import { useParams } from "react-router-dom";
+import TimeAgo from "./TimeUtilities";
 const ReportHistory = () => {
   const dispatch = useDispatch();
   const reportHistoryList = useSelector((state) => state.reportHistories);
@@ -48,7 +50,7 @@ const ReportHistory = () => {
                   variant="body2"
                   color="text.secondary"
                 >
-                  {report.assigned_at}
+                  <TimeAgo timestamp={report.updated_at} />
                 </TimelineOppositeContent>
 
                 {report.report_status === "Pending" && (
@@ -70,11 +72,11 @@ const ReportHistory = () => {
                     <TimelineConnector />
                   </TimelineSeparator>
                 )}
-                {report.report_status === "Closed" && (
+                {report.report_status === "In Progress" && (
                   <TimelineSeparator>
-                    <TimelineConnector sx={{ bgcolor: "error.main" }} />
-                    <TimelineDot color="error">
-                      <CancelRounded></CancelRounded>
+                    <TimelineConnector sx={{ bgcolor: "primary.main" }} />
+                    <TimelineDot color="primary">
+                      <AlarmOn></AlarmOn>
                     </TimelineDot>
                     <TimelineConnector />
                   </TimelineSeparator>

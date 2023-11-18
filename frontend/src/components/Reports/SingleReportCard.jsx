@@ -9,6 +9,7 @@ import Sheet from "@mui/joy/Sheet";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import Modal from "@mui/material/Modal";
+import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -17,7 +18,7 @@ import {
   getUsers,
   getUsersByRoleId,
 } from "../../redux/actions/userManagementAction";
-import { TaskAltOutlined } from "@mui/icons-material";
+import { TaskAltOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
 import { updateReportStatus } from "../../redux/actions/reportAction";
 
 const SingleReportCard = ({ report, history, component }) => {
@@ -429,7 +430,13 @@ const SingleReportCard = ({ report, history, component }) => {
                     }}
                   >
                     <Button variant="outlined" color="neutral">
-                      Chat
+                    <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/reportHistory/${report?.id}`}
+                >
+                  History
+                  {/* <RemoveRedEyeOutlined color="success" /> View */}
+                </Link>
                     </Button>
                     <Button
                       onClick={handleEmailButtonClick}
