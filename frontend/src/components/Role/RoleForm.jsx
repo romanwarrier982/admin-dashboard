@@ -69,7 +69,7 @@ const RoleForm = () => {
               onChange={(e) => setUser({ ...user, name: e.target.value })}
               style={{ padding: "8px" }}
             />
-            <TextField
+            {/* <TextField
               id="enter-email"
               label="Enter email"
               variant="outlined"
@@ -87,11 +87,11 @@ const RoleForm = () => {
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
               style={{ padding: "8px" }}
-            />
+            /> */}
             {user.role?.name}
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"

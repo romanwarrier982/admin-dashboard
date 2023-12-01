@@ -134,7 +134,7 @@ export const searchProduct = (searchKey) => {
     axios
       .post(`${url}/product_search`, searchKey)
       .then((products) => {
-        var productList = products.data;
+        var productList = products.data.data;
         dispatch({
           type: "SEARCH_PRODUCT",
           productList,

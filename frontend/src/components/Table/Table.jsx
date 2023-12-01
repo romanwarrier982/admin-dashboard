@@ -12,7 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
-import { TableFooter } from "@mui/material";
+import { Button, TableFooter } from "@mui/material";
 import checklist from "../../imgs/reports.gif";
 
 const makeStyle = (report_status) => {
@@ -25,6 +25,11 @@ const makeStyle = (report_status) => {
     return {
       background: "#ffadad8f",
       color: "red",
+    };
+  }else if (report_status === "In Progress") {
+    return {
+      background: "#FFFF00",
+      color: "black",
     };
   } else {
     return {
@@ -62,15 +67,38 @@ export default function BasicTable() {
 
   return (
     <div style={{ objectFit: "contain" }} className="Table">
-      <h3>
-        Recent Progress <img src={checklist} alt="icon" />{" "}
-      </h3>
+      <div className="card">
+        <div className="card-header">
+          <div className="card-title">
+            <h3>
+              Recent Progress <img src={checklist} alt="icon" />{" "}
+            </h3>
+          </div>
+          <div className="row">
+            <div className="col-md-4">
+              <label className="me-2">Status:</label>
+              <select className="form-select">
+                <option value="All">All</option>
+                <option value="Resolved">Resolved</option>
+                <option value="Active">Active</option>
+              </select>
+            </div>
+            <div className="col-md-4">
+              <label className="me-2">Opened Date:</label>
+              <input type="date" className="form-control" />
+            </div>
+            <div className="col-md-4">
+              <label className="me-2">Update Date:</label>
+              <input type="date" className="form-control" />
+            </div>
+          </div>
+        </div>
+      </div>
       <TableContainer
         component={Paper}
         style={{
           boxShadow: "0px 13px 20px 0px #80808029",
           objectFit: "contain",
-          zoom: "0.5",
         }}
       >
         <Table
@@ -105,10 +133,6 @@ export default function BasicTable() {
             <TableRow>
               <TableCell>Product</TableCell>
               <TableCell align="left">Report</TableCell>
-              <TableCell align="left">Type</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left">Opend</TableCell>
-              <TableCell align="left">Last Update</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white", objectFit: "contain" }}>
@@ -136,7 +160,7 @@ export default function BasicTable() {
                                 <TableCell align="left">Description</TableCell>
                                 <TableCell align="left">Type</TableCell>
                                 <TableCell align="left">Status</TableCell>
-                                <TableCell align="left">Updated</TableCell>
+                                <TableCell align="left">Last Updated</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
@@ -156,13 +180,13 @@ export default function BasicTable() {
                                     {report.report_type}
                                   </TableCell>
                                   <TableCell align="center">
-                                    <span
+                                    <Button
                                       align="center"
-                                      className="status"
+                                      className="status rounded-corner"
                                       style={makeStyle(report.report_status)}
                                     >
                                       {report.report_status}
-                                    </span>
+                                    </Button>
                                   </TableCell>
                                   <TableCell align="center">
                                     {report.updated_at}
@@ -173,18 +197,9 @@ export default function BasicTable() {
                           </Table>
                         </TableCell>
 
-                        <TableCell align="left">{product.created_at}</TableCell>
-                        <TableCell align="left">
-                          <span
-                            className="status"
-                            style={makeStyle(product.price)}
-                          >
-                            {product.price}
-                          </span>
-                        </TableCell>
-                        <TableCell align="left" className="Details">
+                        {/* <TableCell align="left" className="Details">
                           Details
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     </>
                   )

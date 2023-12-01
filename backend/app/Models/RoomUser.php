@@ -9,4 +9,14 @@ class RoomUser extends Model
 {
     use HasFactory;
     protected $fillable = ["room_id", "user_id", "created_by", "updated_by"];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

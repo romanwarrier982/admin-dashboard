@@ -18,6 +18,7 @@ import ProductList from "../products/ProductList";
 import Product from "../products/Product";
 import "./Profile.css";
 import SingleReportCard from "../Reports/SingleReportCard";
+
 const ProfileCard = () => {
   const dispatch = useDispatch();
 
@@ -155,15 +156,14 @@ const ProfileCard = () => {
             </Sheet>
             <Box sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}>
               <Button variant="outlined" color="neutral">
-                Chat
+                Details
               </Button>
-              <Button variant="solid" color="primary">
-                Follow
+              <Button variant="solid" color="warning">
+                Edit
               </Button>
             </Box>
           </CardContent>
         </Card>
-
       </Box>
       <div>
         <Typography variant="h1" fontWeight="lg">
@@ -192,7 +192,7 @@ const ProfileCard = () => {
       <div>
         <Typography variant="h1" fontWeight="lg">
           {" "}
-          <InfoRounded></InfoRounded> My Reports
+          <InfoRounded></InfoRounded> My Issues
         </Typography>
       </div>
       <div className="horizontal-scroll-container">
@@ -211,6 +211,7 @@ const ProfileCard = () => {
             })}
         </div>
       </div>
+     
     </>
   );
 };

@@ -105,7 +105,13 @@ class ProductController extends Controller
     public function search(Request $request)
     {
 
-        return Product::where('name', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(10);
+
+        $products = Product::with('user', 'room', 'reports', 'reports.history')->where('name', 'LIKE', '%' . $request->get('searchKey') . '%')->paginate(10);
+        $resolved = Report::where('report_status', 'Resolved')->count();
+        $pending = Report::where('report_status', 'Pending')->count();
+        $closed = Report::where('report_status', 'Closed')->count();
+        $opended = Report::where('report_status', 'Opened')->count();
+        return response()->json(["status" => "success", "data" => $products, "resolved" => $resolved, "pending" => $pending, "closed" => $closed, "opended" => $opended]);
     }
 
     /**

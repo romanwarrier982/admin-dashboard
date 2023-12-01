@@ -106,39 +106,44 @@ export default function RoleList() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>User</TableCell>
               <TableCell align="left">Role</TableCell>
               <TableCell align="left">Date</TableCell>
               <TableCell align="left">Status</TableCell>
-              <TableCell align="left"></TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {userList ? (
-              userList.map((user) => (
+            {roleList ? (
+              roleList.map((role) => (
                 <TableRow
-                  key={user.id}
+                  key={role.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {user.email}
+                    {role.name}
                   </TableCell>
+                  <TableCell align="left">{role?.created_at}</TableCell>
                   <TableCell align="left">
-                    {user?.role?.name}
+                    {role?.status === "active" ? (
+                      <span className="badge bg-success">Active</span>
+                    ) : (
+                      <span className="badge bg-danger">Inactive</span>
+                    )}
                   </TableCell>
-                  <TableCell align="left">
-                    {user?.created_at}
+                  <TableCell  style={{padding:"2"}} align="left">
+                    <button  className="btn btn-sm btn-warning">Edit</button>
+                    <button className="btn btn-sm btn-danger">Delete</button>
                   </TableCell>
                 </TableRow>
               ))
             ) : (
-              <div>No Users Avaiable</div>
+              <div>No roles Avaiable</div>
             )}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TableCell>
-                {userList && (
+                {roleList && (
                   <Pagination
                     activePage={paginationData.current_page}
                     itemsCountPerPage={paginationData.per_page}

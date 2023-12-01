@@ -22,6 +22,7 @@ import download from "../imgs/download.gif"
 import img1 from "../imgs/img1.png";
 import img2 from "../imgs/img2.png";
 import img3 from "../imgs/img3.png";
+import {BugReport} from "@material-ui/icons";
 
 // Sidebar Data
 export const SidebarData = [
@@ -32,34 +33,46 @@ export const SidebarData = [
     roles: [2],
   },
   {
+    icon: UilEstate,
+    heading: "IT Dashboard",
+    link: "/it_dashboard",
+    roles: [3],
+  },
+  {
     icon: UilUserCircle,
     heading: "My Profile",
     link: "/profile",
     roles: [1,2,3,4,5,6,7,8,9,10],
   },
+  // {
+  //   icon: UilClipboardAlt,
+  //   heading: "Issues",
+  //   link: "/test",
+  //   roles: [1,2],
+  // },
   {
     icon: UilClipboardAlt,
     heading: "Issues",
-    link: "/test",
-    roles: [1,2],
-  },
-  {
-    icon: UilClipboardAlt,
-    heading: "Report",
     link: "/reportHistory",
     roles: [1,2],
   },
-  {
-    icon: UilSchedule,
-    heading: "Schedules",
-    link: "/test",
-    roles: [1,2],
-  },
+  // {
+  //   icon: UilSchedule,
+  //   heading: "Schedules",
+  //   link: "/test",
+  //   roles: [1,2],
+  // },
   {
     icon: UilUsersAlt,
     heading: "Users",
     link: "/signup",
     roles: [1,2,3],
+  },
+  {
+    icon: BugReport,
+    heading: "Create Issue",
+    link: "/make_report",
+    roles: [1,2,3,4,5,6,7,8,9,10],
   },
   {
     icon: UilSitemap,
@@ -74,24 +87,24 @@ export const SidebarData = [
     link: "/asset",
     roles: [1,2,3],
   },
-  {
-    icon: UilChart,
-    heading: 'Inventory',
-    link: "/test",
-    roles: [2,3],
-  },
-  {
-    icon: UilEstate,
-    heading: "Permissions",
-    link: "/test",
-    roles: [2,3,4,5],
-  },
-  {
-    icon: UilChart,
-    heading: 'Analytics',
-    link: "/test",
-    roles: [2,3,4,5],
-  },
+  // {
+  //   icon: UilChart,
+  //   heading: 'Inventory',
+  //   link: "/test",
+  //   roles: [2,3],
+  // },
+  // {
+  //   icon: UilEstate,
+  //   heading: "Permissions",
+  //   link: "/test",
+  //   roles: [2,3,4,5],
+  // },
+  // {
+  //   icon: UilChart,
+  //   heading: 'Analytics',
+  //   link: "/test",
+  //   roles: [2,3,4,5],
+  // },
   
 ];
 

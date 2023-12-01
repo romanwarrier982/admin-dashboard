@@ -12,14 +12,8 @@ class Role extends Model
 
     protected $fillable = ["name", "details", "status"];
 
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permissions');
+    }
 }
-
-
-// $table->bigInteger('user_type_id')->unsigned();
-//             $table->bigInteger('permission_id')->unsigned();
-
-//             $table->foreign('user_type_id')->references('id')->on('web_user_types')->onDelete('cascade');
-//             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
-
-
-//             $table->primary(['user_type_id', 'permission_id']);;

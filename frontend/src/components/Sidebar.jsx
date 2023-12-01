@@ -75,7 +75,7 @@ const Sidebar = () => {
         {/* signoutIcon */}
         <div className="menuItem">
           
-          <Link  style={{ color:"black" , textDecoration: "none" }} to='/test'> <UilSignOutAlt /></Link>
+          <Link onClick={() => handleLogOut()}  style={{ color:"black" , textDecoration: "none" }} to='/'> <UilSignOutAlt /> <span>Log Out</span> </Link>
 
       
          
@@ -83,14 +83,14 @@ const Sidebar = () => {
         {auth?.id && (
             <>
             
-              <Typography style={{ color: "black" }} variant="subtitle2">
+              {/* <Typography style={{ color: "black" }} variant="subtitle2">
                 Logged in as {auth.name}-{auth.userData.role.name}
-              </Typography>
-              <Button  edge="end" color="inherit" onClick={() => handleLogOut()}>
-                <Link style={{ color: "white", textDecoration: "none" }} to="/">
+              </Typography> */}
+              {/* <Button  edge="end" color="primary" onClick={() => handleLogOut()}>
+                <Link style={{ color: "black", textDecoration: "none" }} to="/">
                   log Out
                 </Link>
-              </Button>
+              </Button> */}
             </>
         )}
        
