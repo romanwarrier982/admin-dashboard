@@ -62,6 +62,9 @@ Route::post('products_by_room_id_get/{id}', [ProductController::class, 'getProdu
 
 Route::post('reports_by_user_id_get/{id}', [ReportController::class, 'getReportsByUserId'])->name('reports_by_user_id_get');
 
+//Report Created
+Route::post('report_create', [ReportController::class, 'createReport'])->name('report_create');
+
 Route::group([
 
     'middleware' => 'api',

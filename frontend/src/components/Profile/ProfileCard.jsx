@@ -18,7 +18,8 @@ import ProductList from "../products/ProductList";
 import Product from "../products/Product";
 import "./Profile.css";
 import SingleReportCard from "../Reports/SingleReportCard";
-
+import StaffDashboard from "./StaffDashboard";
+import DynamicTable from "./DynamicTable";
 const ProfileCard = () => {
   const dispatch = useDispatch();
 
@@ -37,6 +38,31 @@ const ProfileCard = () => {
   console.log("User:", userProductList.length);
   console.log("Room:", roomProductList);
   console.log("Report:", userReportList);
+  // Original array of objects
+  const originalArray = roomProductList;
+  const originalArray2 = userReportList;
+  // Keys to copy
+  const keysToCopy = ["name", "details", "type", "id"];
+  const keysToCopy2 = ["report_description", "report_type", "report_status", "id"];
+
+  // Copy array based on the keys
+  const copiedArray = originalArray.map((obj) => {
+    const newObj = {};
+    keysToCopy.forEach((key) => {
+      newObj[key] = obj[key];
+    });
+    return newObj;
+  });
+  const copiedArray2 = originalArray2.map((obj) => {
+    const newObj = {};
+    keysToCopy2.forEach((key) => {
+      newObj[key] = obj[key];
+    });
+    return newObj;
+  });
+  console.log(copiedArray2);
+
+  console.log(copiedArray);
 
   return (
     <>
@@ -173,7 +199,10 @@ const ProfileCard = () => {
       </div>
       <div className="horizontal-scroll-container">
         <div className="scroll-content">
-          {roomProductList.length &&
+          {roomProductList.length && (
+            <DynamicTable data={copiedArray} tableName={"profile_product_list"}></DynamicTable>
+          )}
+          {/* {roomProductList.length &&
             roomProductList?.map((product) => {
               return (
                 <div className="item">
@@ -185,7 +214,7 @@ const ProfileCard = () => {
                   ></Product>
                 </div>
               );
-            })}
+            })} */}
         </div>
       </div>
 
@@ -197,7 +226,10 @@ const ProfileCard = () => {
       </div>
       <div className="horizontal-scroll-container">
         <div className="scroll-content">
-          {userReportList.length &&
+          {userReportList.length && (
+            <DynamicTable data={copiedArray2} tableName={"profile_report_list"}></DynamicTable>
+          )}
+          {/* {userReportList.length &&
             userReportList?.map((report) => {
               return (
                 <div className="item" style={{ width: "25%" }}>
@@ -208,10 +240,9 @@ const ProfileCard = () => {
                   ></SingleReportCard>
                 </div>
               );
-            })}
+            })} */}
         </div>
       </div>
-     
     </>
   );
 };

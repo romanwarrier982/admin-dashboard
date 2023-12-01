@@ -12,17 +12,21 @@ import {
 } from "@iconscout/react-unicons";
 
 // Analytics Cards imports
-import {  UilExclamationTriangle,UilCheckCircle,UilHourglass } from "@iconscout/react-unicons";
+import {
+  UilExclamationTriangle,
+  UilCheckCircle,
+  UilHourglass,
+} from "@iconscout/react-unicons";
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
 
 // Recent Card Imports
-import target from '../imgs/target.gif'
-import danger from "../imgs/danger.gif"
-import download from "../imgs/download.gif"
+import target from "../imgs/target.gif";
+import danger from "../imgs/danger.gif";
+import download from "../imgs/download.gif";
 import img1 from "../imgs/img1.png";
 import img2 from "../imgs/img2.png";
 import img3 from "../imgs/img3.png";
-import {BugReport} from "@material-ui/icons";
+import { BugReport } from "@material-ui/icons";
 
 // Sidebar Data
 export const SidebarData = [
@@ -42,7 +46,7 @@ export const SidebarData = [
     icon: UilUserCircle,
     heading: "My Profile",
     link: "/profile",
-    roles: [1,2,3,4,5,6,7,8,9,10],
+    roles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   // {
   //   icon: UilClipboardAlt,
@@ -54,7 +58,7 @@ export const SidebarData = [
     icon: UilClipboardAlt,
     heading: "Issues",
     link: "/reportHistory",
-    roles: [1,2],
+    roles: [1, 2],
   },
   // {
   //   icon: UilSchedule,
@@ -66,26 +70,26 @@ export const SidebarData = [
     icon: UilUsersAlt,
     heading: "Users",
     link: "/signup",
-    roles: [1,2,3],
+    roles: [1, 2],
   },
   {
     icon: BugReport,
     heading: "Create Issue",
     link: "/make_report",
-    roles: [1,2,3,4,5,6,7,8,9,10],
+    roles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   {
     icon: UilSitemap,
     heading: "Roles",
     link: "/roles",
-    roles: [1,2,3],
+    roles: [1, 2],
   },
-  
+
   {
     icon: UilPackage,
-    heading: 'Asset',
+    heading: "Asset",
     link: "/asset",
-    roles: [1,2,3],
+    roles: [1, 2],
   },
   // {
   //   icon: UilChart,
@@ -105,7 +109,6 @@ export const SidebarData = [
   //   link: "/test",
   //   roles: [2,3,4,5],
   // },
-  
 ];
 
 // Analytics Cards Data
@@ -117,7 +120,6 @@ export const cardsData = [
       // boxShadow: "0px 10px 20px 0px #e0c6f5",
       backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
       boxShadow: "0px 10px 20px 0px #FDC0C7",
-      
     },
     barValue: 70,
     value: "250",
@@ -186,26 +188,24 @@ export const UpdatesData = [
   },
 ];
 
-
 // User Management Cards Data
 export const userManagement = [
-
-{
-  title: "Example",
-  color: {
-    background: "linear-gradient(180deg, #FFFFFF 0%, #CCCCCC 100%)",
-    boxShadow: "0px 10px 20px 0px #CCCCCC",
-  },
-  barValue: 50,
-  value: "500",
-  png: UilExclamationTriangle,
-  series: [
-    {
-      name: "Example",
-      data: [10, 20, 30, 40, 50, 60, 70],
+  {
+    title: "Example",
+    color: {
+      background: "linear-gradient(180deg, #FFFFFF 0%, #CCCCCC 100%)",
+      boxShadow: "0px 10px 20px 0px #CCCCCC",
     },
-  ],
-},
+    barValue: 50,
+    value: "500",
+    png: UilExclamationTriangle,
+    series: [
+      {
+        name: "Example",
+        data: [10, 20, 30, 40, 50, 60, 70],
+      },
+    ],
+  },
 
   {
     title: "Users",

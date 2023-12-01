@@ -86,27 +86,24 @@ export const updateReportStatus = (report) => {
   };
 }
 
-// export const addProduct = (newProduct) => {
-//   const data = new FormData();
-//   data.append("images", newProduct.images);
-//   data.append("name", newProduct.name);
-//   data.append("price", newProduct.price);
-//   return (dispatch, getState) => {
-//     axios
-//       .post(`${url}/products`, data, setHeaders())
-//       .then((response) => {
-//         dispatch({
-//           type: "ADD_PRODUCT",
-//           response,
-//         });
-//       })
-//       .catch((error) => {
-//         toast.error(error.response?.data, {
-//           position: toast.POSITION.TOP_RIGHT,
-//         });
-//       });
-//   };
-// };
+export const addReport = (report) => {
+  console.log("report", report);
+  return (dispatch, getState) => {
+    axios
+      .post(`${url}/report_create`, report, setHeaders())
+      .then((response) => {
+        dispatch({
+          type: "ADD_REPORT",
+          response,
+        });
+      })
+      .catch((error) => {
+        toast.error(error.response?.data, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+};
 
 // export const updateProduct = (updatedProduct) => {
 //   return (dispatch) => {

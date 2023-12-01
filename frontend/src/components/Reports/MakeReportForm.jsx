@@ -19,6 +19,7 @@ import {
 } from "../../redux/actions/userManagementAction";
 import { TaskAltOutlined, BugReport } from "@mui/icons-material";
 import {
+  addReport,
   getReportByUserId,
   updateReportStatus,
 } from "../../redux/actions/reportAction";
@@ -32,6 +33,7 @@ import ReviewSuggestions from "./ReviewSuggestions";
 
 const MakeReportForm = () => {
   const userProductList = useSelector((state) => state.products);
+  const [issue, setIssue] = useState({});
   const roomProductList = useSelector((state) => state.roomProducts);
   const auth = useSelector((state) => state.auth);
   const [personal_asset, setPersonalAsset] = useState("");
@@ -50,6 +52,16 @@ const MakeReportForm = () => {
   }, [dispatch]);
 
   const handleUpdateReport = () => {};
+  const handleSubmission = () => {
+    const newReport = {
+      user_id: auth.id,
+      asset_id: room_asset || personal_asset,
+      report_type: report_type,
+      report_description: report_description,
+    };
+
+    dispatch(addReport(newReport));
+  };
 
   return (
     <>
@@ -166,7 +178,7 @@ const MakeReportForm = () => {
                 ></ReviewSuggestions>
               </div>
             </div>
-            <Button variant="solid" color="danger" onClick={handleUpdateReport}>
+            <Button variant="solid" color="danger" onClick={handleSubmission}>
               <BugReport></BugReport> Report Issue
             </Button>
           </FormControl>

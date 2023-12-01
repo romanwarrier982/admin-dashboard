@@ -76,8 +76,10 @@ const Product = ({ product, productList, setProduct }) => {
                     </Button>
                   </>
                 ))}
-              <Button onClick={() => handleDelete(product)}>
-                <InfoRounded color="warning" /> Report
+              <Button color="warning" >
+                <Link  to={"/make_report"} >
+                  Create Issue
+                </Link>
               </Button>
 
               <Button>

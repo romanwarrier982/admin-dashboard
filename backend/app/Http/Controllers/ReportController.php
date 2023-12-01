@@ -111,4 +111,21 @@ class ReportController extends Controller
 
         return response()->json(["status" => "success", "message" => "Report Updated Successfully"]);
     }
+
+    //create Report
+
+    public function createReport(Request $request)
+    {
+
+        $report = new Report();
+        $report->user_id = $request->user_id;
+        $report->asset_id = $request->asset_id;
+        $report->report_status = "Pending";
+        $report->report_description = $request->report_description;
+        $report->report_type = $request->report_type;
+        
+        $report->save();
+
+        return response()->json(["status" => "success", "message" => "Report Created Successfully"]);
+    }
 }

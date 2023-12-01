@@ -27,7 +27,11 @@ import {
   DoneAll as DoneAllIcon,
   ReportProblem as ReportProblemIcon,
 } from "@mui/icons-material";
+import LaptopIcon from "@mui/icons-material/Laptop";
+import SdStorageIcon from "@mui/icons-material/SdStorage";
+import ConstructionIcon from "@mui/icons-material/Construction";
 import StaffModal from "./StaffModal";
+import SolutionHints from "./SolutionHints";
 
 const StaffDashboard = () => {
   // State to manage the list of solution hints for each report
@@ -65,18 +69,25 @@ const StaffDashboard = () => {
     // Logic to update the status of the selected task
     // You can dispatch an action or make an API call here
   };
+  const toolSuggestions = [
+    { name: "Laptop", icon: <LaptopIcon /> },
+    { name: "Pendrive", icon: <SdStorageIcon /> },
+    { name: "Tools", icon: <ConstructionIcon /> },
+    // Add more tools with icons
+  ];
   const handleAddSolutionHint = (reportId) => {
     // Fetch automated suggestions or handle logic to generate suggestions
-    const automatedSuggestions = [
-      "Laptop",
-      "Bootable Pendrive",
-      "Wire" /* Add more suggestions */,
+    const toolSuggestions = [
+      { name: "Laptop", icon: <LaptopIcon /> },
+      { name: "Pendrive", icon: <SdStorageIcon /> },
+      { name: "Keyboard", icon: <ConstructionIcon /> },
+      // Add more tools with icons
     ];
 
     // Update solution hints state
     setSolutionHints((prevHints) => ({
       ...prevHints,
-      [reportId]: automatedSuggestions,
+      [reportId]: toolSuggestions,
     }));
   };
   const [isModalOpen, setModalOpen] = useState(false);
@@ -123,7 +134,6 @@ const StaffDashboard = () => {
             <Typography>Total Tasks: {totalTasks}</Typography>
             <Typography>Assigned Tasks: {assignedTasks}</Typography>
             <Typography>Resolved Tasks: {resolvedTasks}</Typography>
-            <Typography>Currently Assigned Tasks: 1</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -154,6 +164,7 @@ const StaffDashboard = () => {
                     <TableCell>Status</TableCell>
                     <TableCell>Action</TableCell>
                     <TableCell>Solution Hints</TableCell>
+                    <TableCell>Suggested Tools</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -189,7 +200,7 @@ const StaffDashboard = () => {
                         </FormControl>
                       </TableCell>
                       <TableCell>
-                       
+                        <SolutionHints></SolutionHints>
                         <StaffModal
                           isOpen={isModalOpen}
                           onClose={handleCloseModal}
@@ -204,6 +215,12 @@ const StaffDashboard = () => {
                           Add Solution Hint
                         </Button>
                       </TableCell>
+                      {toolSuggestions.map((tool, index) => (
+                        <TableRow key={index}>
+                          <span>{tool.name}</span>
+                          <span>{tool.icon}</span>
+                        </TableRow>
+                      ))}
                     </TableRow>
                   ))}
                 </TableBody>
