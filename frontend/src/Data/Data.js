@@ -56,7 +56,7 @@ export const SidebarData = [
     icon: UilClipboardAlt,
     heading: "Issues",
     link: "/reportHistory",
-    roles: [1, 2],
+    roles: [2],
   },
   // {
   //   icon: UilSchedule,
@@ -68,7 +68,7 @@ export const SidebarData = [
     icon: UilUsersAlt,
     heading: "Users",
     link: "/signup",
-    roles: [1, 2],
+    roles: [2],
   },
   {
     icon: BugReport,
@@ -80,14 +80,14 @@ export const SidebarData = [
     icon: UilSitemap,
     heading: "Roles",
     link: "/roles",
-    roles: [1, 2],
+    roles: [2],
   },
 
   {
     icon: UilPackage,
     heading: "Asset",
     link: "/asset",
-    roles: [1, 2],
+    roles: [2],
   },
   // {
   //   icon: UilChart,
