@@ -9,10 +9,17 @@ import Sheet from "@mui/joy/Sheet";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import Modal from "@mui/material/Modal";
+import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  CardHeader,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { getRoles } from "../../redux/actions/roleAction";
 import {
   getUsers,
@@ -20,6 +27,7 @@ import {
 } from "../../redux/actions/userManagementAction";
 import { TaskAltOutlined, RemoveRedEyeOutlined } from "@mui/icons-material";
 import { updateReportStatus } from "../../redux/actions/reportAction";
+import aiIcon from "../../imgs/ai_icon.gif";
 
 const SingleReportCard = ({ report, history, component }) => {
   const auth = useSelector((state) => state.auth);
@@ -53,7 +61,6 @@ const SingleReportCard = ({ report, history, component }) => {
   const handleChange = (event) => {
     setRole(event.target.value);
     dispatch(getUsersByRoleId(role));
-   
   };
 
   const handleChangeUser = (event) => {
@@ -82,9 +89,10 @@ const SingleReportCard = ({ report, history, component }) => {
       id: selectedReport,
       assigned_by: auth.id,
       assigned_to: user,
-      report_status: "In Progress",
+      report_status: "Pending",
       assigned_description: assigned_description,
       assigned_status: "Assigned",
+      userInfo: auth,
     };
     dispatch(updateReportStatus(updateReportData));
   };
@@ -127,7 +135,9 @@ const SingleReportCard = ({ report, history, component }) => {
         >
           <Box sx={style}>
             <Box sx={{ minWidth: 120 }}>
+              
               <FormControl fullWidth>
+                
                 <InputLabel id="demo-simple-select-label">Role</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -182,6 +192,12 @@ const SingleReportCard = ({ report, history, component }) => {
                 <Button onClick={handleUpdateReport}>
                   <TaskAltOutlined></TaskAltOutlined> Assign Task
                 </Button>
+                <CardActionArea alignContent="center">
+                  <Typography variant="p" fontWeight="lg">
+                    <img src={aiIcon}></img>
+                    Top Suggestions
+                  </Typography>
+                </CardActionArea>
               </FormControl>
             </Box>
           </Box>
@@ -422,6 +438,66 @@ const SingleReportCard = ({ report, history, component }) => {
                       </Typography>
                     </div>
                   </Sheet>
+
+                  <Sheet
+                    sx={{
+                      bgcolor: "background.level1",
+                      borderRadius: "sm",
+                      p: 1.5,
+                      my: 1.5,
+                      display: "flex",
+                      gap: 2,
+                      "& > div": { flex: 1 },
+                    }}
+                  >
+                    <div>
+                      <Typography level="body-xs" fontWeight="lg">
+                        Suggested Staff
+                      </Typography>
+                      <Typography fontWeight="lg">
+                        <img src={aiIcon}></img>
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography level="body-xs" fontWeight="lg">
+                        Staff
+                      </Typography>
+                      <Typography fontWeight="lg">
+                        <div className="row">
+                          <Avatar sx={{ bgcolor: "wheat", mb: 1 }}>J</Avatar>
+                          <Avatar sx={{ bgcolor: "wheat", mb: 1 }}>S</Avatar>
+                        </div>
+                        <Typography level="body-xs" fontWeight="lg">
+                          John +5 more
+                        </Typography>
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography level="body-xs" fontWeight="lg">
+                        Skills
+                      </Typography>
+                      <Typography alignItems="center" fontWeight="lg">
+                        <Badge
+                          badgeContent="Networking"
+                          color={spanColor}
+                        ></Badge>
+                      </Typography>
+
+                      <Typography alignItems="center" fontWeight="lg">
+                        <Badge
+                          badgeContent="Troubleshooting"
+                          color={spanColor}
+                        ></Badge>
+                      </Typography>
+                      <Typography alignItems="center" fontWeight="lg">
+                        <Badge
+                          badgeContent="Problem_Solving"
+                          color={spanColor}
+                        ></Badge>
+                      </Typography>
+                    </div>
+                  </Sheet>
+
                   <Box
                     sx={{
                       display: "flex",
@@ -430,13 +506,13 @@ const SingleReportCard = ({ report, history, component }) => {
                     }}
                   >
                     <Button variant="outlined" color="neutral">
-                    <Link
-                  style={{ textDecoration: "none" }}
-                  to={`/reportHistory/${report?.id}`}
-                >
-                  History
-                  {/* <RemoveRedEyeOutlined color="success" /> View */}
-                </Link>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={`/reportHistory/${report?.id}`}
+                      >
+                        History
+                        {/* <RemoveRedEyeOutlined color="success" /> View */}
+                      </Link>
                     </Button>
                     <Button
                       onClick={handleEmailButtonClick}
@@ -447,8 +523,8 @@ const SingleReportCard = ({ report, history, component }) => {
                     </Button>
 
                     {(component.component === "ReportList" &&
-                      report?.report_status === "Pending") ||
-                      (report?.report_status === "Active" && (
+                      (report?.report_status === "Pending" ||
+                      report?.report_status === "Active" )&& (
                         <Button
                           onClick={handleOpen}
                           variant="solid"
@@ -456,7 +532,7 @@ const SingleReportCard = ({ report, history, component }) => {
                         >
                           Assign Task
                         </Button>
-                      )) ||
+                      ) ||
                       (report?.report_status === "In Progress" && (
                         <Button
                           onClick={handleOpen}
@@ -465,7 +541,7 @@ const SingleReportCard = ({ report, history, component }) => {
                         >
                           Forward Task
                         </Button>
-                      ))}
+                      )))}
                   </Box>
                 </>
               ))}

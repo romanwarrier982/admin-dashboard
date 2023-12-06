@@ -87,22 +87,42 @@ const ReportHistory = () => {
                     {report.report_status}
                   </Typography>
                   <Avatar
-                    alt={report?.assigned_by?.name}
+                    alt={report?.created_by?.name}
                     src="/static/images/avatar/1.jpg"
                   />
                   <Typography fontSize="xl" fontWeight="lg">
-                    Assigned By: {report?.assigned_by?.name} -{" "}
-                    {report?.assigned_by?.role?.name}
+                    Updated By: {report?.creator?.name} -{" "}
+                    {report?.creator?.role?.name}
                   </Typography>
-                  <Typography>
-                    Comment: {report.assigned_description}
-                  </Typography>
+                  {report?.report_status === "Pending" && (
+                    <Typography>
+                       Comment: {report?.assigned_description}
+                    </Typography>
+                  )}
+
+                  {report?.report_status === "Active" && (
+                    <Typography>
+                      Comment: {report?.recieved_description}
+                    </Typography>
+                  )}
+
+                  {report?.report_status === "In Progress" && (
+                    <Typography>
+                      Comment: {report?.recieved_description}
+                    </Typography>
+                  )}
+                  {report?.report_status === "Resolved" && (
+                    <Typography>
+                      Comment: {report?.resolved_description}
+                    </Typography>
+                  )}
                   <Typography fontSize="xl" fontWeight="lg">
-                    Assigned At : {report?.assigned_at}
+                    Updated At : {report?.updated_at}
                   </Typography>
+
                 </TimelineContent>
 
-                {report?.forward_status !== "Not Forwarded" && (
+                {/* {report?.forward_status !== "Not Forwarded" && (
                   <TimelineContent sx={{ py: "12px", px: 2 }}>
                     <Typography variant="h6" component="span">
                       {report?.forward_status}
@@ -122,7 +142,7 @@ const ReportHistory = () => {
                       Assigned At : {report?.forward_at}
                     </Typography>
                   </TimelineContent>
-                )}
+                )} */}
               </TimelineItem>
             );
           })}

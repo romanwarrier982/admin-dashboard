@@ -20,6 +20,7 @@ import "./Profile.css";
 import SingleReportCard from "../Reports/SingleReportCard";
 import StaffDashboard from "./StaffDashboard";
 import DynamicTable from "./DynamicTable";
+import AiSuggestionComponent from "../Reports/AiSuggestionComponent";
 const ProfileCard = () => {
   const dispatch = useDispatch();
 
@@ -27,12 +28,14 @@ const ProfileCard = () => {
   const roomProductList = useSelector((state) => state.roomProducts);
   const auth = useSelector((state) => state.auth);
   const userReportList = useSelector((state) => state.reports);
+  const [prompt, setPrompt] = React.useState(false);
 
   console.log("Profile:", auth);
   useEffect(() => {
     dispatch(getProductsByUserId(auth.id));
     dispatch(getProductsByRoomId(auth.userData.room_id));
     dispatch(getReportByUserId(auth.id));
+    setPrompt(true);
   }, [dispatch]);
 
   console.log("User:", userProductList.length);
@@ -217,6 +220,7 @@ const ProfileCard = () => {
             })} */}
         </div>
       </div>
+    
 
       <div>
         <Typography variant="h1" fontWeight="lg">

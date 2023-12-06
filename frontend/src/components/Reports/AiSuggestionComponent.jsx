@@ -5,46 +5,48 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
+import OpenAI from "openai";
 
-const SimilarReportHints = ({ onSelectHint }) => {
-  // State to store suggestions
+const AiSuggestionComponent = ({ onSelectHint }) => {
   const [resolvedHints, setResolvedHints] = useState([]);
   const [selectedHints, setSelectedHints] = useState([]);
 
   useEffect(() => {
-    // Fetch resolved hints
-    // Replace this with your actual logic or API call
-    // For now, I'll just use dummy data.
-    const dummyResolvedHints = [
-      "Hardware device was restarted.",
-      "Software updates were applied.",
-      "Network issues were resolved by IT support.",
-    ];
+    const generateHints = async () => {
+      try {
+        // Create a new instance of OpenAI with your API key
+        const openai = new OpenAI({
+      
+          dangerouslyAllowBrowser: true // Replace with your actual API key
+        });
 
-    // Simulate typing effect
-    const typeHintsWithDelay = async () => {
-      for (let i = 0; i < dummyResolvedHints.length; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Adjust the timeout duration as needed
-        setResolvedHints((prevHints) => [...prevHints, dummyResolvedHints[i]]);
+    
+        const response = await openai.completions.create({
+          model: "gpt-3.5-turbo",
+          prompt: "Generate three IT support hints.",
+          max_tokens: 100,
+        });
+
+        console.log("Response:", response);
+
+        // Extract hints from the API response
+        const newHints = response.choices.map((choice) => choice.text.trim());
+
+        setResolvedHints(newHints);
+      } catch (error) {
+        console.error("Error fetching hints from OpenAI:", error);
       }
     };
 
-    typeHintsWithDelay();
-  }, []); // Run this effect only once on component mount
+    generateHints();
+  }, []);
 
   const handleCheckboxChange = (hint) => {
-    // Toggle the checkbox
     const newSelectedHints = selectedHints.includes(hint)
       ? selectedHints.filter((selectedHint) => selectedHint !== hint)
       : [...selectedHints, hint];
 
-    // Update the state
-
-
-
     setSelectedHints(newSelectedHints);
-
-    // Pass the selected hints to the parent component
     onSelectHint(newSelectedHints);
   };
 
@@ -84,4 +86,4 @@ const SimilarReportHints = ({ onSelectHint }) => {
   );
 };
 
-export default SimilarReportHints;
+export default AiSuggestionComponent;

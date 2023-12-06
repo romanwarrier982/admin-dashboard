@@ -30,6 +30,8 @@ import {
 } from "../../redux/actions/productAction";
 import SimilarReportHints from "./SimilarReportHints";
 import ReviewSuggestions from "./ReviewSuggestions";
+import aiIcon from "../../imgs/ai_icon.gif";
+
 
 const MakeReportForm = () => {
   const userProductList = useSelector((state) => state.products);
@@ -159,6 +161,7 @@ const MakeReportForm = () => {
             <div className="card">
               <div className="card-header">
                 <Typography variant="p" fontWeight="lg">
+                 <img src={aiIcon}></img>
                   {" "}
                   <TaskAltOutlined color="primary"></TaskAltOutlined>Similler
                   Report Resolved Hints

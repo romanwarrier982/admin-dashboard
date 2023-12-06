@@ -26,6 +26,7 @@ const DynamicTable = ({ data, tableName }) => {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>#SL</TableCell>
             {columns.map((column) => (
               <TableCell key={column}>{column}</TableCell>
             ))}
@@ -34,7 +35,11 @@ const DynamicTable = ({ data, tableName }) => {
         <TableBody>
           {data.map((row, index) => (
             <TableRow key={index}>
-              {columns.map((column) => (
+              <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              {columns.map((column) => 
+              (
                 <TableCell key={column}>{row[column]}</TableCell>
               ))}
               <TableCell>

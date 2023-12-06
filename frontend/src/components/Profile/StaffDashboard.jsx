@@ -19,6 +19,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  CardActionArea,
+  Badge,
 } from "@mui/material";
 
 import {
@@ -26,16 +28,81 @@ import {
   PlaylistAddCheck as PlaylistAddCheckIcon,
   DoneAll as DoneAllIcon,
   ReportProblem as ReportProblemIcon,
+  RemoveRedEyeOutlined,
 } from "@mui/icons-material";
 import LaptopIcon from "@mui/icons-material/Laptop";
 import SdStorageIcon from "@mui/icons-material/SdStorage";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import StaffModal from "./StaffModal";
 import SolutionHints from "./SolutionHints";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getReportByUserId,
+  getReports,
+  updateReportStatus,
+} from "../../redux/actions/reportAction";
+import DynamicTable from "./DynamicTable";
+import {
+  getProductsByRoomId,
+  getProductsByUserId,
+} from "../../redux/actions/productAction";
+import aiIcon from "../../imgs/ai_icon.gif";
+import { Link } from "react-router-dom";
 
 const StaffDashboard = () => {
   // State to manage the list of solution hints for each report
   const [solutionHints, setSolutionHints] = useState({});
+  const [component, setComponent] = useState({ component: "ReportList" });
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const page = useSelector((state) => state.reports);
+  const dispatch = useDispatch();
+  const userProductList = useSelector((state) => state.products);
+  const roomProductList = useSelector((state) => state.roomProducts);
+  const auth = useSelector((state) => state.auth);
+  const reportList = useSelector((state) => state.reports);
+
+  console.log("Profile:", auth);
+  useEffect(() => {
+    dispatch(getProductsByUserId(auth.id));
+    dispatch(getProductsByRoomId(auth.userData.room_id));
+    dispatch(getReportByUserId(auth.id));
+  }, [dispatch]);
+
+  const handleUpdateReport = (e) => {
+    e.preventDefault();
+  };
+
+  // Original array of objects
+  const originalArray = roomProductList;
+  const originalArray2 = reportList;
+  // Keys to copy
+  const keysToCopy = ["name", "details", "type", "id"];
+  const keysToCopy2 = [
+    "report_description",
+    "report_type",
+    "report_status",
+    "id",
+  ];
+
+  // Copy array based on the keys
+  const copiedArray = originalArray.map((obj) => {
+    const newObj = {};
+    keysToCopy.forEach((key) => {
+      newObj[key] = obj[key];
+    });
+    return newObj;
+  });
+  const copiedArray2 = originalArray2.map((obj) => {
+    const newObj = {};
+    keysToCopy2.forEach((key) => {
+      newObj[key] = obj[key];
+    });
+    return newObj;
+  });
+  console.log(copiedArray2);
+
+  console.log(copiedArray);
 
   // Function to handle adding a solution hint for a report
   // Replace the dummy data with your actual data structures
@@ -45,11 +112,16 @@ const StaffDashboard = () => {
     // ... other tasks
   ]);
 
-  const [reports, setReports] = useState([
-    { id: 1, description: "Report 1", status: "Open" },
-    { id: 2, description: "Report 2", status: "Resolved" },
-    // ... other reports
-  ]);
+  // const [reports, setReports] = useState([
+  //   {
+  //     id: "In Progress",
+  //     description: "Started working on the task",
+  //     status: "In Progress",
+  //   },
+  //   { id: "Resolved", description: "Issue is fixed", status: "Resolved" },
+  //   { id: "Closed", description: "Issue is closed", status: "Closed" },
+  //   { id: "Pending", description: "Waiting for updates", status: "Pending" },
+  // ]);
 
   const [itStaffProfile, setItStaffProfile] = useState({
     name: "John Doe",
@@ -59,15 +131,43 @@ const StaffDashboard = () => {
     department: "IT Department",
   });
 
-  const [selectedTask, setSelectedTask] = useState(null);
+  const makeStyle = (report_status) => {
+    if (report_status === "Resolved") {
+      return {
+        background: "rgb(145 254 159 / 47%)",
+        color: "green",
+      };
+    } else if (report_status === "Active") {
+      return {
+        background: "#ffadad8f",
+        color: "red",
+      };
+    } else if (report_status === "In Progress") {
+      return {
+        background: "#FFFF00",
+        color: "black",
+      };
+    } else {
+      return {
+        textwrap: "wrap",
+        objectFit: "contain",
+        background: "#59bfff",
+        color: "white",
+      };
+    }
+  };
 
-  useEffect(() => {
-    // Fetch tasks and reports data from your backend or API
-    // Update tasks and reports state accordingly
-  }, []); // Run this effect only once on component mount
-  const handleUpdateReportStatus = (taskId, newStatus) => {
-    // Logic to update the status of the selected task
-    // You can dispatch an action or make an API call here
+  const handleUpdateReportStatus = (reportId, status) => {
+
+
+    const updateReportData = {
+      id: reportId,
+      report_status: status,
+      userInfo: auth,
+      description: "This report is in" + status + "status",
+    };
+    dispatch(updateReportStatus(updateReportData));
+    dispatch(getReportByUserId(auth.id));
   };
   const toolSuggestions = [
     { name: "Laptop", icon: <LaptopIcon /> },
@@ -163,27 +263,32 @@ const StaffDashboard = () => {
                     <TableCell>Description</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>Action</TableCell>
-                    <TableCell>Solution Hints</TableCell>
-                    <TableCell>Suggested Tools</TableCell>
+                    <TableCell>
+                      <img src={aiIcon}></img> Solution Hints{" "}
+                    </TableCell>
+                    <TableCell>
+                      <img src={aiIcon}></img> Suggested Tools
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {reports.map((report) => (
+                  {reportList.map((report) => (
                     <TableRow key={report.id}>
                       <TableCell>{report.id}</TableCell>
-                      <TableCell>{report.description}</TableCell>
-                      <TableCell>{report.status}</TableCell>
+                      <TableCell>{report.report_description}</TableCell>
+                      <TableCell>
+                        <Badge
+                          align="center"
+                          className="status rounded-corner"
+                          style={makeStyle(report.report_status)}
+                        >
+                          {report.report_status}
+                        </Badge>
+                      </TableCell>
                       <TableCell>
                         <FormControl fullWidth>
-                          <InputLabel id={`status-label-${report.id}`}>
-                            Update Status
-                          </InputLabel>
+                          <InputLabel>Update Status</InputLabel>
                           <Select
-                            labelId={`status-label-${report.id}`}
-                            id={`status-select-${report.id}`}
-                            value={
-                              selectedTask === report.id ? "" : report.status
-                            }
                             label="Update Status"
                             onChange={(event) => {
                               setSelectedTask(report.id);
@@ -193,10 +298,20 @@ const StaffDashboard = () => {
                               );
                             }}
                           >
-                            <MenuItem value="Open">Open</MenuItem>
+                            <MenuItem value="In Progress">In Progress</MenuItem>
                             <MenuItem value="Resolved">Resolved</MenuItem>
-                            {/* Add other status options as needed */}
+                            <MenuItem value="Closed">Closed</MenuItem>
+                            <MenuItem value="Pending">Pending</MenuItem>
                           </Select>
+                          <Button color="success">
+                            <RemoveRedEyeOutlined fontSize="small" />
+                            <Link
+                              style={{ textDecoration: "none" }}
+                              to={`/reportHistory/${report.id}`}
+                            >
+                              View History
+                            </Link>
+                          </Button>
                         </FormControl>
                       </TableCell>
                       <TableCell>
@@ -229,6 +344,25 @@ const StaffDashboard = () => {
           </CardContent>
         </Card>
       </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <Card
+          sx={{
+            background: "#f0f0f0",
+            boxShadow: "0px 5px 15px 0px #80808029",
+          }}
+        >
+          <CardActionArea>
+            {copiedArray2.length && (
+              <DynamicTable
+                data={copiedArray2}
+                tableName={"dashboard_report_list"}
+              ></DynamicTable>
+            )}
+          </CardActionArea>
+        </Card>
+      </Grid>
+
       {/* </Grid> */}
     </Box>
   );

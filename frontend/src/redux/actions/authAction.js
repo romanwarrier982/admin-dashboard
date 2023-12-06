@@ -46,7 +46,7 @@ export const loadUser = () => {
       })
       .catch((error) => {
         toast.error(
-          " Log in to get Admin access ⚙️⚙️, Or Enjoy your shopping 🛒🛒",
+          " Log in to get Admin access ⚙️⚙️⚙️",
           {
             position: toast.POSITION.TOP_RIGHT,
           }

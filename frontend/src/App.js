@@ -1,7 +1,13 @@
 import "./App.css";
 import React, { useEffect } from "react";
 import { Container } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  redirect,
+} from "react-router-dom";
 
 import LogIn from "./components/auth/LogIn";
 import ProductDashboard from "./components/products/ProductDashboard";
@@ -45,10 +51,20 @@ function App() {
                     <Routes>
                       <Route path="/signup" element={<SignUp />} />
                       <Route path="/" element={<LogIn />} />
-                      <Route path="/home" element={<MainDash />} />
+
+                      {auth?.userData?.role?.name === "Admin" ||
+                      auth.userData.role.name === "Super Admin" ? (
+                        <Route path="/home" element={<MainDash />} />
+                      ) : (
+                        <Route path="/profile" element={<ProfileCard />} />
+                      )}
+
                       <Route path="/asset" element={<ProductDashboard />} />
                       <Route path="/test" element={<Test></Test>} />
-                      <Route path="/roles" element={<RoleForm></RoleForm>} />
+                      <Route
+                        path="/roles"
+                        element={<Navigate to="/profile" />}
+                      />
                       <Route
                         path="/reportHistory/:id"
                         element={<ReportHistory></ReportHistory>}

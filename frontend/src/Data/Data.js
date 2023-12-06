@@ -23,9 +23,7 @@ import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import target from "../imgs/target.gif";
 import danger from "../imgs/danger.gif";
 import download from "../imgs/download.gif";
-import img1 from "../imgs/img1.png";
-import img2 from "../imgs/img2.png";
-import img3 from "../imgs/img3.png";
+
 import { BugReport } from "@material-ui/icons";
 
 // Sidebar Data

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Models\ReportHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -63,7 +64,9 @@ class ReportController extends Controller
             'assignedBy.role',
             'assignedTo.role',
             'forwardBy.role',
-            'forwardTo.role'
+            'forwardTo.role',
+            'creator.role',
+            
         )->where('report_id', $id)->get();
 
         return response()->json(["status" => "success", "count" => count($reportHistory), "data" => $reportHistory, "report" => $report]);
@@ -85,29 +88,55 @@ class ReportController extends Controller
     public function updateReportStatus(Request $request)
     {
 
-        $report = Report::find($request->id);
-        $report->report_status = $request->report_status;
-        $report->save();
 
-        $reportHistory = new ReportHistory();
-        $reportHistory->report_id = $request->id;
-        $reportHistory->assigned_to = $request->assigned_to;
-        $reportHistory->assigned_by = $request->assigned_by;
-        $reportHistory->assigned_description = $request->assigned_description;
-        $reportHistory->assigned_status = $request->assigned_status;
+        DB::beginTransaction();
 
-        $reportHistory->report_status = $request->report_status;
-        // $reportHistory->forward_to = $request->forward_to;
-        // $reportHistory->forward_by = $request->forward_by;
-        // $reportHistory->forward_description = $request->forward_description;
-        // $reportHistory->forward_status = $request->forward_status;
+        try {
+            $report = Report::find($request->id);
+            $report->report_status = $request->report_status;
+            $report->save();
 
-        // $reportHistory->resolved_by = $request->resolved_by;
-        // $reportHistory->resolved_description = $request->resolved_description;
-        // $reportHistory->resolved_status = $request->resolved_status;
-    
+            $reportHistory = new ReportHistory();
 
-        $reportHistory->save();
+            if ($request->userInfo['userData']['role']['name'] == "Admin" || $request->userInfo['userData']['role']['name']) {
+
+                $reportHistory->assigned_to = $request->assigned_to;
+                $reportHistory->assigned_by = $request->assigned_by;
+                $reportHistory->assigned_description = $request->assigned_description;
+                $reportHistory->assigned_status = $request->assigned_status;
+            } else {
+                if ($request->report_status == "Resolved") {
+                    $reportHistory->resolved_by = $request->userInfo['userData']['id'];
+                    $reportHistory->resolved_description = "This Report is Resolved";
+                    $reportHistory->resolved_status = $request->report_status;
+                } else if ($request->report_status == "Closed") {
+                    $reportHistory->closed_by = $request->userInfo['userData']['id'];
+                    $reportHistory->closed_description = "This Report is Closed";
+                    $reportHistory->closed_status = $request->report_status;
+                } else if ($request->report_status == "Forwarded") {
+                    $reportHistory->forward_by = $request->userInfo['userData']['id'];
+                    $reportHistory->forward_description = "This Report is Forwarded";
+                    $reportHistory->forward_status = $request->report_status;
+                } else if ($request->report_status == "Pending") {
+                    $reportHistory->forward_by = $request->userInfo['userData']['id'];
+                    $reportHistory->forward_description = "Waiting for updates";
+                    $reportHistory->forward_status = $request->report_status;
+                } else {
+                    $reportHistory->recieved_by = $request->userInfo['userData']['id'];
+                    $reportHistory->recieved_description = $report->description;
+                    
+                }
+            }
+            $reportHistory->report_id = $request->id;
+            $reportHistory->report_status = $request->report_status;
+            $reportHistory->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(["status" => "error", "message" => $e->getMessage()]);
+        }
+
 
         return response()->json(["status" => "success", "message" => "Report Updated Successfully"]);
     }
@@ -116,15 +145,33 @@ class ReportController extends Controller
 
     public function createReport(Request $request)
     {
+        DB::beginTransaction();
 
-        $report = new Report();
-        $report->user_id = $request->user_id;
-        $report->asset_id = $request->asset_id;
-        $report->report_status = "Pending";
-        $report->report_description = $request->report_description;
-        $report->report_type = $request->report_type;
-        
-        $report->save();
+        try {
+            $report = new Report();
+            $report->user_id = $request->user_id;
+            $report->asset_id = $request->asset_id;
+            $report->report_status = "Active";
+            $report->report_description = $request->report_description;
+            $report->report_type = $request->report_type;
+
+
+            $report->save();
+
+            $reportHistory = new ReportHistory();
+            $reportHistory->report_id = $report->id;
+            $reportHistory->recieved_by = $request->user_id;
+            $reportHistory->recieved_description = $request->report_description;
+         
+            $reportHistory->report_status = "Active";
+            $reportHistory->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(["status" => "error", "message" => $e->getMessage()]);
+        }
+
 
         return response()->json(["status" => "success", "message" => "Report Created Successfully"]);
     }

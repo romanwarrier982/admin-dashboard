@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cards from "../Cards/Cards";
 import Table from "../Table/Table";
 import {
@@ -20,7 +20,11 @@ import StorageIcon from "@mui/icons-material/Storage";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "./MainDash.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+
 const MainDash = () => {
+ 
   return (
     <div className="MainDash">
       <h1 style={{ paddingTop: "2rem" }}>Dashboard</h1>
