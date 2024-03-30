@@ -36,8 +36,8 @@ return [
      * For more information: https://github.com/skanaar/nomnoml
      */
     'style' => [
-        'background' => '#071013',
-        'stroke'     => '#EBEBEB',
+        'background' => 'wheat',
+        'stroke'     => '#000000',
         'arrowSize'  => 1,
         'bendSize'   => 0.3,
         'direction'  => 'down',
@@ -45,7 +45,7 @@ return [
         'edgeMargin' => 0,
         'gravity'    => 1,
         'edges'      => 'rounded',
-        'fill'       => '#3A6EA5',
+        'fill'       => 'white',
         'fillArrows' => false,
         'font'       => 'Calibri',
         'fontSize'   => 12,
