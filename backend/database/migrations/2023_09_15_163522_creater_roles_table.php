@@ -18,6 +18,7 @@ class CreaterRolesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->string('name');
             $table->string('status')->nullable();
             $table->string('details')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }
